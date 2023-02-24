@@ -1,61 +1,44 @@
-package com.shield.eaarogya.Entity;
+package com.shield.eaarogya.DTO;
 
-import javax.persistence.*;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.util.Date;
 
-@Entity
-@Table(name="patient")
-public class Patient {
+public class PatientDetails {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long patientId;
 
-    @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name="first_name", nullable = false)
-    private String firstName;
+    private String fullName;
 
-    @Column(name="last_name", nullable = false)
     private String lastName;
 
-    @Column(name = "gender", nullable = false)
     private String gender;
 
-    @Column(name = "phone_no", nullable = false)
     private long phoneNo;
 
-    @Column(name = "email", unique = true, nullable = false)
     private String email;
 
-    @Column(name = "dob", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date dob;
 
-    @Column(name = "address", nullable = false)
     private String addr;
 
-    @Column(name = "city", nullable = false)
     private String city;
 
-    @Column(name = "pincode", nullable = false)
     private long pincode;
 
-    // One-to-Many Mapping with Prescription Table
-//    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
 //    private List<Prescription> prescriptionList;
+    // --------------------------------- Constructor ---------------------------------------
 
-
-
-    // ----------------------- Generating Constructor -----------------------------
-
-    public Patient() {
+    public PatientDetails() {
     }
 
-    public Patient(String title, String firstName, String lastName, String gender, long phoneNo, String email, Date dob, String addr, String city, long pincode) {
+    public PatientDetails(long patientId, String title, String fullName, String lastName, String gender, long phoneNo, String email, Date dob, String addr, String city, long pincode) {
+        this.patientId = patientId;
         this.title = title;
-        this.firstName = firstName;
+        this.fullName = fullName;
         this.lastName = lastName;
         this.gender = gender;
         this.phoneNo = phoneNo;
@@ -66,7 +49,7 @@ public class Patient {
         this.pincode = pincode;
     }
 
-    // ----------------------- Generating Getters and Setters --------------------------
+    // ----------------------------------- Getters and Setters -------------------------------------
 
     public long getPatientId() {
         return patientId;
@@ -84,13 +67,21 @@ public class Patient {
         this.title = title;
     }
 
-//    public List<Prescription> getPrescriptionList() {
-//        return prescriptionList;
-//    }
-//
-//    public void setPrescriptionList(List<Prescription> prescriptionList) {
-//        this.prescriptionList = prescriptionList;
-//    }
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
     public String getGender() {
         return gender;
@@ -98,22 +89,6 @@ public class Patient {
 
     public void setGender(String gender) {
         this.gender = gender;
-    }
-
-    public String getfFirstName() {
-        return firstName;
-    }
-
-    public void setfFirstName(String fName) {
-        this.firstName = fName;
-    }
-
-    public String getlLastName() {
-        return lastName;
-    }
-
-    public void setlLastName(String lName) {
-        this.lastName = lName;
     }
 
     public long getPhoneNo() {
@@ -164,15 +139,14 @@ public class Patient {
         this.pincode = pincode;
     }
 
-    // ------------------------------ toString() method -----------------------------
-
+    // ------------------------------------ toString() method ---------------------------------------
 
     @Override
     public String toString() {
-        return "Patient{" +
+        return "PatientDetails{" +
                 "patientId=" + patientId +
                 ", title='" + title + '\'' +
-                ", fName='" + firstName + '\'' +
+                ", fName='" + fullName + '\'' +
                 ", lName='" + lastName + '\'' +
                 ", gender='" + gender + '\'' +
                 ", phoneNo=" + phoneNo +

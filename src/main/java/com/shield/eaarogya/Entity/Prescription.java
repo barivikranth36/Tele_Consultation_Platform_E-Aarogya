@@ -1,8 +1,7 @@
 package com.shield.eaarogya.Entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "prescription")
@@ -10,26 +9,31 @@ public class Prescription {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int pres_id;
+    private int prescriptionId;
 
     // Working with date as a string, Later if required we can change it to some other Object
-    @Column(name = "consultation_date", nullable = false)
-    @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
-    private String date;
 
-    @Column(name = "prescription", nullable = false)
-    private String prescription;
+//    @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
+    @Column(name = "consultation_date", nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date date;
+
+    @Column(name = "observation", nullable = false)
+    private String observation;
+
+    @Column(name = "medicine")
+    private String medicine;
 
     @Column(name = "remark", nullable = false)
     private String remark;
 
     // Add many-to-one mapping to Doctor
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "doctor", referencedColumnName = "dr_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "doctor", referencedColumnName = "doctorId")
     private Doctor doctor;
 
     // Add many-to-one mapping to Patient
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "patient", referencedColumnName = "patientId")
     private Patient patient;
 
@@ -39,9 +43,10 @@ public class Prescription {
     public Prescription() {
     }
 
-    public Prescription(String date, String prescription, String remark, Doctor doctor, Patient patient) {
+    public Prescription(Date date, String observation, String medicine, String remark, Doctor doctor, Patient patient) {
         this.date = date;
-        this.prescription = prescription;
+        this.observation = observation;
+        this.medicine = medicine;
         this.remark = remark;
         this.doctor = doctor;
         this.patient = patient;
@@ -49,28 +54,36 @@ public class Prescription {
 
     // ----------------------------------- Getters and Setters --------------------------------------
 
-    public int getPres_id() {
-        return pres_id;
+    public int getPrescriptionId() {
+        return prescriptionId;
     }
 
-    public void setPres_id(int pres_id) {
-        this.pres_id = pres_id;
+    public void setPrescriptionId(int pres_id) {
+        this.prescriptionId = pres_id;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
-    public String getPrescription() {
-        return prescription;
+    public String getObservation() {
+        return observation;
     }
 
-    public void setPrescription(String prescription) {
-        this.prescription = prescription;
+    public void setObservation(String prescription) {
+        this.observation = prescription;
+    }
+
+    public String getMedicine() {
+        return medicine;
+    }
+
+    public void setMedicine(String medicine) {
+        this.medicine = medicine;
     }
 
     public String getRemark() {
@@ -102,12 +115,12 @@ public class Prescription {
     @Override
     public String toString() {
         return "Prescription{" +
-                "pres_id=" + pres_id +
+                "pres_id=" + prescriptionId +
                 ", date='" + date + '\'' +
-                ", prescription='" + prescription + '\'' +
+                ", prescription='" + observation + '\'' +
                 ", remark='" + remark + '\'' +
-                ", doctor=" + doctor.getfName() +
-                ", patient=" + patient.getfName() +
+                ", doctor=" + doctor.getfFirstName() +
+                ", patient=" + patient.getfFirstName() +
                 '}';
     }
 }

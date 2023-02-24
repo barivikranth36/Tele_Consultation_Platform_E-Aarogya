@@ -1,63 +1,50 @@
-package com.shield.eaarogya.Entity;
+package com.shield.eaarogya.DTO;
 
-import javax.persistence.*;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.util.Date;
 
-@Entity
-public class Doctor {
+/*
+    This Class is to merge the department and doctor data and transfer it through the API
+*/
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class DoctorDetails {
+
     private long doctorId;
 
-    @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name = "first_name", nullable = false)
     private String firstName;
 
-    @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "registration_number", nullable = false, unique = true)
     private String registration_number;
 
-    @Column(name = "dob", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date dob;
 
-    @Column(name = "gender", nullable = false)
     private String gender;
 
-    @Column(name = "address", nullable = false)
     private String addr;
 
-    @Column(name = "city", nullable = false)
     private String city;
 
-    @Column(name = "pincode", nullable = false)
     private long pincode;
 
-    // Many-to-One Mapping with Department Table
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "department", referencedColumnName = "departmentId")
-    private Department department;
+    private String departmentName;
+
+//    private String description;
+
+    // ---------------------------------- Constructors ----------------------------------
 
 
-    // One-to-Many Mapping with Prescription Table
-//    @OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY)
-//    private List<Prescription> prescriptionList;
-
-
-    // ------------------------------------- Constructor ------------------------------------
-
-    public Doctor() {
+    public DoctorDetails() {
     }
 
-    public Doctor(String title, String firstName, String lastName, String email, String registration_number, Date dob, String gender, String addr, String city, long pincode, Department department) {
+    public DoctorDetails(long doctorId, String title, String firstName, String lastName, String email, String registration_number, Date dob, String gender, String addr, String city, long pincode, String departmentName) {
+        this.doctorId = doctorId;
         this.title = title;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -68,17 +55,18 @@ public class Doctor {
         this.addr = addr;
         this.city = city;
         this.pincode = pincode;
-        this.department = department;
+        this.departmentName = departmentName;
     }
 
-    // ---------------------------------- Getters and Setters -------------------------------------
+    // ----------------------------------- Getters and Setters --------------------------------------
+
 
     public long getDoctorId() {
         return doctorId;
     }
 
-    public void setDoctorId(long dr_id) {
-        this.doctorId = dr_id;
+    public void setDoctorId(long doctorId) {
+        this.doctorId = doctorId;
     }
 
     public String getTitle() {
@@ -89,12 +77,12 @@ public class Doctor {
         this.title = title;
     }
 
-    public String getfFirstName() {
+    public String getFirstName() {
         return firstName;
     }
 
-    public void setfFirstName(String fName) {
-        this.firstName = fName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getLastName() {
@@ -161,20 +149,20 @@ public class Doctor {
         this.pincode = pincode;
     }
 
-    public Department getDepartment() {
-        return department;
+    public String getDepartmentName() {
+        return departmentName;
     }
 
-    public void setDepartment(Department department) {
-        this.department = department;
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
     }
 
-    // ------------------------------------ toString() method ------------------------------
+    // ------------------------------- toString() method -------------------------------
 
 
     @Override
     public String toString() {
-        return "Doctor{" +
+        return "DoctorDepartment{" +
                 "dr_id=" + doctorId +
                 ", title='" + title + '\'' +
                 ", fName='" + firstName + '\'' +
@@ -186,7 +174,7 @@ public class Doctor {
                 ", addr='" + addr + '\'' +
                 ", city='" + city + '\'' +
                 ", pincode=" + pincode +
-                ", department=" + department.toString() +
+                ", dept_name='" + departmentName + '\'' +
                 '}';
     }
 }
