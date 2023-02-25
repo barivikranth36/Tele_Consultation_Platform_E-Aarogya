@@ -14,11 +14,13 @@ public class DoctorController {
     @Autowired
     private DoctorService doctorService;
 
+    // ----------------------------------------- Register a Doctor -----------------------------------------
     @PostMapping("/registerDoctor")
     public DoctorDetails registerDoctor(@RequestBody DoctorDetails doctorDetails) {
         return doctorService.addDoctor(doctorDetails);
     }
 
+    // ------------------------------------- Get List of all Doctors ------------------------------------------
     @GetMapping("/getAllDoctors")
     public List<DoctorDetails> getAllDoctors() {
         return doctorService.getAllDoctors();

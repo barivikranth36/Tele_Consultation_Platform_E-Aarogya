@@ -16,13 +16,7 @@ public class PatientController {
     @Autowired
     PatientService patientService;
 
-    // ------------------------------ Testing the DAO layer ------------------------------
-    @GetMapping("/test")
-    public String testThis() {
-        return this.patientService.testThis();
-    }
-
-    // -------------------------------- Get all Patients --------------------------------
+    // -------------------------------- Get List of all Patients --------------------------------
     @GetMapping("/getPatients")
     public List<Patient> getPatients() {
         return this.patientService.getPatient();

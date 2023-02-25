@@ -20,7 +20,7 @@ public class DepartmentController {
         return departmentService.saveDepartment(department);
     }
 
-    // ---------------------------------- Get all Departments -------------------------------------
+    // ---------------------------------- Get List of all Departments -------------------------------------
     @GetMapping("/getDepartment")
     public List<Department> fetchDepartmentList() {
         return departmentService.fetchDepartmentList();

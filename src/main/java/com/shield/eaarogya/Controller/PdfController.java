@@ -20,20 +20,16 @@ public class PdfController {
     private PdfService pdfService;
 
     // ------------------------ Generating Pdf based on Prescription Id -------------------------------
-    @PostMapping("/getPdf")
-    public ResponseEntity<InputStreamResource> getPdf(@RequestBody PrescriptionDetails prescriptionDetails) {
+    @GetMapping("/getPdf/{prescriptionId}")
+    public ResponseEntity<InputStreamResource> getPdf(@PathVariable String prescriptionId) {
 
-        int pres_id = prescriptionDetails.getPrescriptionId();
-        System.out.println(pres_id);
-//        int pres_id = 1;
-
-        ByteArrayInputStream pdf = pdfService.generatePdf(pres_id);
+        ByteArrayInputStream pdf = pdfService.generatePdf(Integer.parseInt(prescriptionId));
 
         String date = String.valueOf((new Date()));
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Content-Disposition",
-                "inline;filename=" + pres_id + " " + date +".pdf");
+                "attachment;filename=" + prescriptionId + " " + date +".pdf");
 // Adding headerValue to attachment will make it download the pdf and setting it to inline will show in browser only.
 
         return ResponseEntity
