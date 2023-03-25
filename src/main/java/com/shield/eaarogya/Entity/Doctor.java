@@ -89,11 +89,11 @@ public class Doctor {
         this.title = title;
     }
 
-    public String getfFirstName() {
+    public String getFirstName() {
         return firstName;
     }
 
-    public void setfFirstName(String fName) {
+    public void setFirstName(String fName) {
         this.firstName = fName;
     }
 

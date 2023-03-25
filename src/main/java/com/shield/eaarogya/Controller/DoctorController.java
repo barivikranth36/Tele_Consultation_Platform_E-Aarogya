@@ -26,4 +26,11 @@ public class DoctorController {
         return doctorService.getAllDoctors();
     }
 
+    // ---------------------------------------- Get Doctor by EmailId -------------------------------
+    @GetMapping("/getdoctorByEmail/{email}")
+    public DoctorDetails getDoctorByEmail(@PathVariable String email) {
+//        String email = loginCredentials.getEmail();
+
+        return doctorService.findByEmail(email);
+    }
 }

@@ -47,7 +47,7 @@ public class DoctorServiceImpl implements DoctorService {
 
         for(Doctor doctor: doctorList) {
             doctorDetailsList.add(new DoctorDetails(doctor.getDoctorId(),
-                    doctor.getTitle(), doctor.getfFirstName(),
+                    doctor.getTitle(), doctor.getFirstName(),
                     doctor.getLastName(), doctor.getEmail(),
                     doctor.getRegistration_number(), doctor.getDob(),
                     doctor.getGender(), doctor.getAddr(), doctor.getCity(),
@@ -55,5 +55,19 @@ public class DoctorServiceImpl implements DoctorService {
         }
 
         return doctorDetailsList;
+    }
+
+    @Override
+    public DoctorDetails findByEmail(String email) {
+        Doctor doctor = doctorRepository.findByEmail(email);
+
+        return new DoctorDetails(doctor.getDoctorId(),
+                doctor.getTitle(), doctor.getFirstName(),
+                doctor.getLastName(), doctor.getEmail(),
+                doctor.getRegistration_number(),
+                doctor.getDob(), doctor.getGender(),
+                doctor.getAddr(), doctor.getCity(),
+                doctor.getPincode(),
+                doctor.getDepartment().getDepartmentName());
     }
 }

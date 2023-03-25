@@ -9,4 +9,6 @@ public interface DoctorService {
     public DoctorDetails addDoctor(DoctorDetails doctorDetails);
 
     public List<DoctorDetails> getAllDoctors();
+
+    public DoctorDetails findByEmail(String email);
 }

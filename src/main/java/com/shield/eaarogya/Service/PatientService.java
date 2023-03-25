@@ -15,4 +15,6 @@ public interface PatientService {
     public boolean addPatient(PatientDetails patientDetails);
 
     public Patient getPatientByPatientId(long patientId);
+
+    public Patient findByEmail(String email);
 }

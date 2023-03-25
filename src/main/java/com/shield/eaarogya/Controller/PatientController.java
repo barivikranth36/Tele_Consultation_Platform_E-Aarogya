@@ -32,4 +32,12 @@ public class PatientController {
             return false;
         }
     }
+
+    // ------------------------------- Get Patient details by patient email --------------------------------------
+    @GetMapping("/getpatientByEmail/{email}")
+    public Patient getPatientByEmail(@PathVariable String email) {
+//        String email = loginCredentials.getEmail();
+
+        return patientService.findByEmail(email);
+    }
 }

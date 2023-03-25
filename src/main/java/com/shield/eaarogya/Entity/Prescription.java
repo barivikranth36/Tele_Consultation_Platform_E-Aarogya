@@ -119,8 +119,8 @@ public class Prescription {
                 ", date='" + date + '\'' +
                 ", prescription='" + observation + '\'' +
                 ", remark='" + remark + '\'' +
-                ", doctor=" + doctor.getfFirstName() +
-                ", patient=" + patient.getfFirstName() +
+                ", doctor=" + doctor.getFirstName() +
+                ", patient=" + patient.getFirstName() +
                 '}';
     }
 }

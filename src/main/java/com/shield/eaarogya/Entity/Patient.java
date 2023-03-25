@@ -100,19 +100,19 @@ public class Patient {
         this.gender = gender;
     }
 
-    public String getfFirstName() {
+    public String getFirstName() {
         return firstName;
     }
 
-    public void setfFirstName(String fName) {
+    public void setFirstName(String fName) {
         this.firstName = fName;
     }
 
-    public String getlLastName() {
+    public String getLastName() {
         return lastName;
     }
 
-    public void setlLastName(String lName) {
+    public void setLastName(String lName) {
         this.lastName = lName;
     }
 

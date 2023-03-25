@@ -37,9 +37,9 @@ public class PrescriptionServiceImpl implements PrescriptionService {
             prescriptionDetailsList.add(new PrescriptionDetails(prescription.getPrescriptionId(),
                     prescription.getDate(), prescription.getObservation(),
                     prescription.getMedicine(), prescription.getRemark(),
-                    prescription.getDoctor().getfFirstName() + " " + prescription.getDoctor().getLastName(),
+                    prescription.getDoctor().getFirstName() + " " + prescription.getDoctor().getLastName(),
                     prescription.getDoctor().getDoctorId(),
-                    prescription.getPatient().getfFirstName() + " " + prescription.getPatient().getlLastName(),
+                    prescription.getPatient().getFirstName() + " " + prescription.getPatient().getLastName(),
                     prescription.getPatient().getPatientId()));
         }
 
@@ -59,9 +59,9 @@ public class PrescriptionServiceImpl implements PrescriptionService {
                     prescription.getDate(), prescription.getObservation(),
                     prescription.getMedicine(),
                     prescription.getRemark(),
-                    prescription.getDoctor().getfFirstName() + " " + prescription.getDoctor().getLastName(),
+                    prescription.getDoctor().getFirstName() + " " + prescription.getDoctor().getLastName(),
                     prescription.getDoctor().getDoctorId(),
-                    prescription.getPatient().getfFirstName() + " " + prescription.getPatient().getlLastName(),
+                    prescription.getPatient().getFirstName() + " " + prescription.getPatient().getLastName(),
                     prescription.getPatient().getPatientId()));
         }
         return prescriptionDetailsList;
@@ -100,9 +100,9 @@ public class PrescriptionServiceImpl implements PrescriptionService {
                 prescription.getDate(), prescription.getObservation(),
                 prescription.getMedicine(),
                 prescription.getRemark(),
-                prescription.getDoctor().getfFirstName() + " " + prescription.getDoctor().getLastName(),
+                prescription.getDoctor().getFirstName() + " " + prescription.getDoctor().getLastName(),
                 prescription.getDoctor().getDoctorId(),
-                prescription.getPatient().getfFirstName() + " " + prescription.getPatient().getlLastName(),
+                prescription.getPatient().getFirstName() + " " + prescription.getPatient().getLastName(),
                 prescription.getPatient().getPatientId());
     }
 //    @Override
