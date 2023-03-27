@@ -16,7 +16,7 @@ public class Prescription {
 //    @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
     @Column(name = "consultation_date", nullable = false)
     @Temporal(TemporalType.DATE)
-    private Date date;
+    private Date consultationDate;
 
     @Column(name = "observation", nullable = false)
     private String observation;
@@ -26,6 +26,10 @@ public class Prescription {
 
     @Column(name = "remark", nullable = false)
     private String remark;
+
+    @Column(name = "follow_up_date", nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date followUpDate;
 
     // Add many-to-one mapping to Doctor
     @ManyToOne(fetch = FetchType.EAGER)
@@ -43,11 +47,12 @@ public class Prescription {
     public Prescription() {
     }
 
-    public Prescription(Date date, String observation, String medicine, String remark, Doctor doctor, Patient patient) {
-        this.date = date;
+    public Prescription(Date consultationDate, String observation, String medicine, String remark, Date followUpDate, Doctor doctor, Patient patient) {
+        this.consultationDate = consultationDate;
         this.observation = observation;
         this.medicine = medicine;
         this.remark = remark;
+        this.followUpDate = followUpDate;
         this.doctor = doctor;
         this.patient = patient;
     }
@@ -62,12 +67,12 @@ public class Prescription {
         this.prescriptionId = pres_id;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getConsultationDate() {
+        return consultationDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setConsultationDate(Date date) {
+        this.consultationDate = date;
     }
 
     public String getObservation() {
@@ -88,6 +93,14 @@ public class Prescription {
 
     public String getRemark() {
         return remark;
+    }
+
+    public Date getFollowUpDate() {
+        return followUpDate;
+    }
+
+    public void setFollowUpDate(Date followUpDate) {
+        this.followUpDate = followUpDate;
     }
 
     public void setRemark(String remark) {
@@ -116,7 +129,7 @@ public class Prescription {
     public String toString() {
         return "Prescription{" +
                 "pres_id=" + prescriptionId +
-                ", date='" + date + '\'' +
+                ", date='" + consultationDate + '\'' +
                 ", prescription='" + observation + '\'' +
                 ", remark='" + remark + '\'' +
                 ", doctor=" + doctor.getFirstName() +

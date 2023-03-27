@@ -50,4 +50,6 @@ public class AppointmentController {
     public List<AppointmentDetails> getAllAppointments(@PathVariable String departmentName) {
         return appointmentService.getAppointmentsByDepartment(departmentName);
     }
+
+    //
 }

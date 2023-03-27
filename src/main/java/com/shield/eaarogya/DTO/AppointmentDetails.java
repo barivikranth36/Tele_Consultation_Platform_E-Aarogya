@@ -25,14 +25,6 @@ public class AppointmentDetails {
 
     // ---------------------------------------- Constructor --------------------------------------------
 
-
-    public AppointmentDetails(long appointmentId, Date appointmentTimestamp, long patientId, String departmentName) {
-        this.appointmentId = appointmentId;
-        this.appointmentTimestamp = appointmentTimestamp;
-        this.patientId = patientId;
-        this.departmentName = departmentName;
-    }
-
     public AppointmentDetails(Date appointmentTimestamp, long patientId, String departmentName) {
         this.appointmentTimestamp = appointmentTimestamp;
         this.patientId = patientId;

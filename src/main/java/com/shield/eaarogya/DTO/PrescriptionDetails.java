@@ -13,7 +13,7 @@ public class PrescriptionDetails {
 
     private int prescriptionId;
     @Temporal(TemporalType.DATE)
-    private Date date;
+    private Date consultationDate;
     private String observation;
     private String medicine;
     private String remark;
@@ -22,15 +22,18 @@ public class PrescriptionDetails {
     private String patientName;
     private long patientId;
 
+    @Temporal(TemporalType.DATE)
+    private Date followUpDate;
+
     // -------------------------Constructors ---------------------------
 
 
     public PrescriptionDetails() {
     }
 
-    public PrescriptionDetails(int prescriptionId, Date date, String observation, String medicine, String remark, String doctorName, long doctorId, String patientName, long patientId) {
+    public PrescriptionDetails(int prescriptionId, Date consultationDate, String observation, String medicine, String remark, String doctorName, long doctorId, String patientName, long patientId, Date followUpDate) {
         this.prescriptionId = prescriptionId;
-        this.date = date;
+        this.consultationDate = consultationDate;
         this.observation = observation;
         this.medicine = medicine;
         this.remark = remark;
@@ -38,6 +41,7 @@ public class PrescriptionDetails {
         this.doctorId = doctorId;
         this.patientName = patientName;
         this.patientId = patientId;
+        this.followUpDate = followUpDate;
     }
 
     // ------------------------------------- toString() --------------------
@@ -46,7 +50,7 @@ public class PrescriptionDetails {
     public String toString() {
         return "PrescriptionDetails{" +
                 "pres_id=" + prescriptionId +
-                ", date='" + date + '\'' +
+                ", date='" + consultationDate + '\'' +
                 ", prescription='" + observation + '\'' +
                 ", remark='" + remark + '\'' +
                 ", doctorName='" + doctorName + '\'' +

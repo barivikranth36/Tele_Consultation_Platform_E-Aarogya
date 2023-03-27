@@ -29,6 +29,7 @@ public class DoctorServiceImpl implements DoctorService {
 
         Doctor doctor = new Doctor(doctorDetails.getTitle(),
                 doctorDetails.getFirstName(), doctorDetails.getLastName(),
+                doctorDetails.getPhoneNumber(),
                 doctorDetails.getEmail(), doctorDetails.getRegistration_number(),
                 doctorDetails.getDob(), doctorDetails.getGender(),
                 doctorDetails.getAddr(), doctorDetails.getCity(),
@@ -49,6 +50,7 @@ public class DoctorServiceImpl implements DoctorService {
             doctorDetailsList.add(new DoctorDetails(doctor.getDoctorId(),
                     doctor.getTitle(), doctor.getFirstName(),
                     doctor.getLastName(), doctor.getEmail(),
+                    doctor.getPhoneNumber(),
                     doctor.getRegistration_number(), doctor.getDob(),
                     doctor.getGender(), doctor.getAddr(), doctor.getCity(),
                     doctor.getPincode(), doctor.getDepartment().getDepartmentName()));
@@ -64,6 +66,7 @@ public class DoctorServiceImpl implements DoctorService {
         return new DoctorDetails(doctor.getDoctorId(),
                 doctor.getTitle(), doctor.getFirstName(),
                 doctor.getLastName(), doctor.getEmail(),
+                doctor.getPhoneNumber(),
                 doctor.getRegistration_number(),
                 doctor.getDob(), doctor.getGender(),
                 doctor.getAddr(), doctor.getCity(),

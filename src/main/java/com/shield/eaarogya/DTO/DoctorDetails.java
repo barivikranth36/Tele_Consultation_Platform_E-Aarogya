@@ -20,6 +20,8 @@ public class DoctorDetails {
 
     private String email;
 
+    private long phoneNumber;
+
     private String registration_number;
 
     @Temporal(TemporalType.DATE)
@@ -43,12 +45,13 @@ public class DoctorDetails {
     public DoctorDetails() {
     }
 
-    public DoctorDetails(long doctorId, String title, String firstName, String lastName, String email, String registration_number, Date dob, String gender, String addr, String city, long pincode, String departmentName) {
+    public DoctorDetails(long doctorId, String title, String firstName, String lastName, String email, long phoneNumber, String registration_number, Date dob, String gender, String addr, String city, long pincode, String departmentName) {
         this.doctorId = doctorId;
         this.title = title;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.phoneNumber = phoneNumber;
         this.registration_number = registration_number;
         this.dob = dob;
         this.gender = gender;
@@ -99,6 +102,14 @@ public class DoctorDetails {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public long getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(long phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getRegistration_number() {

@@ -35,12 +35,13 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
         for(Prescription prescription: prescriptionList) {
             prescriptionDetailsList.add(new PrescriptionDetails(prescription.getPrescriptionId(),
-                    prescription.getDate(), prescription.getObservation(),
+                    prescription.getConsultationDate(), prescription.getObservation(),
                     prescription.getMedicine(), prescription.getRemark(),
                     prescription.getDoctor().getFirstName() + " " + prescription.getDoctor().getLastName(),
                     prescription.getDoctor().getDoctorId(),
                     prescription.getPatient().getFirstName() + " " + prescription.getPatient().getLastName(),
-                    prescription.getPatient().getPatientId()));
+                    prescription.getPatient().getPatientId(),
+                    prescription.getFollowUpDate()));
         }
 
         return prescriptionDetailsList;
@@ -56,13 +57,14 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
         for(Prescription prescription: prescriptionList) {
             prescriptionDetailsList.add(new PrescriptionDetails(prescription.getPrescriptionId(),
-                    prescription.getDate(), prescription.getObservation(),
+                    prescription.getConsultationDate(), prescription.getObservation(),
                     prescription.getMedicine(),
                     prescription.getRemark(),
                     prescription.getDoctor().getFirstName() + " " + prescription.getDoctor().getLastName(),
                     prescription.getDoctor().getDoctorId(),
                     prescription.getPatient().getFirstName() + " " + prescription.getPatient().getLastName(),
-                    prescription.getPatient().getPatientId()));
+                    prescription.getPatient().getPatientId(),
+                    prescription.getFollowUpDate()));
         }
         return prescriptionDetailsList;
     }
@@ -75,10 +77,12 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
         Patient prescribedPatient = patientRepository.findById(prescriptionDetails.getPatientId()).get();
 
-        Prescription prescription = new Prescription(prescriptionDetails.getDate(),
+        Prescription prescription = new Prescription(prescriptionDetails.getConsultationDate(),
                 prescriptionDetails.getObservation(),
                 prescriptionDetails.getMedicine(),
-                prescriptionDetails.getRemark(), prescribingDoctor,
+                prescriptionDetails.getRemark(),
+                prescriptionDetails.getConsultationDate(),
+                prescribingDoctor,
                 prescribedPatient);
         
         try {
@@ -97,13 +101,14 @@ public class PrescriptionServiceImpl implements PrescriptionService {
         Prescription prescription = prescriptionRepository.findById(pres_id).get();
 
         return new PrescriptionDetails(prescription.getPrescriptionId(),
-                prescription.getDate(), prescription.getObservation(),
+                prescription.getConsultationDate(), prescription.getObservation(),
                 prescription.getMedicine(),
                 prescription.getRemark(),
                 prescription.getDoctor().getFirstName() + " " + prescription.getDoctor().getLastName(),
                 prescription.getDoctor().getDoctorId(),
                 prescription.getPatient().getFirstName() + " " + prescription.getPatient().getLastName(),
-                prescription.getPatient().getPatientId());
+                prescription.getPatient().getPatientId(),
+                prescription.getFollowUpDate());
     }
 //    @Override
 //    public List<Prescription> getPrescriptions(Long pres_id) {
