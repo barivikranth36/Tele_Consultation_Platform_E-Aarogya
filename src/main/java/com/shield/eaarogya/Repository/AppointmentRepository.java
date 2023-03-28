@@ -16,4 +16,5 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     // To get Appointments whose timestamp is less than the particular appointment timestamp and are of same department
     public List<Appointment> findAllByDepartment_DepartmentNameAndAppointmentTimestampLessThan(
             String departmentName, Date appointmentTimestamp);
+
 }

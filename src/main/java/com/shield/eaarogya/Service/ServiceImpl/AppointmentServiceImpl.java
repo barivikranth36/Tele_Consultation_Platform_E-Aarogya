@@ -85,14 +85,20 @@ public class AppointmentServiceImpl implements AppointmentService {
         }
     }
 
+    // Based on appointment Id, it will give the count of patient infront of him.
     @Override
     public int waitingPatients(long appointmentId) {
         try {
             Appointment appointment = appointmentRepository.findByAppointmentId(appointmentId);
-            List<Appointment> appointmentList = appointmentRepository.findAllByDepartment_DepartmentNameAndAppointmentTimestampLessThan(
-                    appointment.getDepartment().getDepartmentName(), appointment.getAppointmentTimestamp());
-
-            return appointmentList.size();
+            List<Appointment> appointmentList = new ArrayList<>();
+            if(appointment != null) {
+                appointmentList = appointmentRepository.findAllByDepartment_DepartmentNameAndAppointmentTimestampLessThan(
+                        appointment.getDepartment().getDepartmentName(), appointment.getAppointmentTimestamp());
+            }
+            if(appointmentList != null)
+                return appointmentList.size();
+            else
+                return 0;
         } catch (Exception e) {
             System.out.println("Error Occured while fetching number of waiting patients.");
             e.printStackTrace();
@@ -120,4 +126,5 @@ public class AppointmentServiceImpl implements AppointmentService {
             return null;
         }
     }
+
 }

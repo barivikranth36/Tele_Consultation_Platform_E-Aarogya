@@ -59,17 +59,17 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public boolean verifyPhoneNumber(long phoneNumber) {
+    public Patient getPatientByPhoneNumber(long phoneNumber) {
         try {
             Patient patient = patientRepository.findByPhoneNo(phoneNumber);
             if (patient != null) {
-                return true;
+                return patient;
             }
-            return false;
+            return null;
         } catch (Exception e) {
             System.out.println("Error Occured while verifying phone number");
             e.printStackTrace();
-            return false;
+            return null;
         }
     }
 }

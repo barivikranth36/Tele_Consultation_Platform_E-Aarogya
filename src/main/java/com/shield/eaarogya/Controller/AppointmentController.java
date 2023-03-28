@@ -39,7 +39,7 @@ public class AppointmentController {
         return appointmentService.deleteAppointment(Long.parseLong(appointmentId));
     }
 
-    // ---------------------------------------- Patients waiting ---------------------------------------------
+    // -------------------------------- Patients waiting based on appointment Id ---------------------------------------------
     @GetMapping("/waitingPatients/{appointmentId}")
     public int waitingPatients(@PathVariable long appointmentId) {
         return appointmentService.waitingPatients(appointmentId);

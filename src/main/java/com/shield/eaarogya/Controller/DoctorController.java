@@ -1,6 +1,7 @@
 package com.shield.eaarogya.Controller;
 
 import com.shield.eaarogya.DTO.DoctorDetails;
+import com.shield.eaarogya.Entity.Patient;
 import com.shield.eaarogya.Service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -33,5 +34,11 @@ public class DoctorController {
 //        String email = loginCredentials.getEmail();
 
         return doctorService.findByEmail(email);
+    }
+
+    // ------------------------------ Get Doctor from Phone Number --------------------------------------
+    @GetMapping("/getDoctorByPhoneNumber/{phoneNumber}")
+    public DoctorDetails getDoctorByPhoneNumber(@PathVariable String phoneNumber) {
+        return doctorService.getDoctorByPhoneNumber(Long.parseLong(phoneNumber));
     }
 }

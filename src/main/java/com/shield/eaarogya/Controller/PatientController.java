@@ -40,4 +40,10 @@ public class PatientController {
 
         return patientService.findByEmail(email);
     }
+
+    // ------------------------------ Get Patient from Phone Number --------------------------------------
+    @GetMapping("/getPatientByPhoneNumber/{phoneNumber}")
+    public Patient getPatientByPhoneNumber(@PathVariable String phoneNumber) {
+        return patientService.getPatientByPhoneNumber(Long.parseLong(phoneNumber));
+    }
 }

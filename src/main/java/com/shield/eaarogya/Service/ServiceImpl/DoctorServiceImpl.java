@@ -93,17 +93,25 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
-    public boolean verifyPhoneNumber(long phoneNumber) {
+    public DoctorDetails getDoctorByPhoneNumber(long phoneNumber) {
         try {
             Doctor doctor = doctorRepository.findByPhoneNumber(phoneNumber);
             if (doctor != null) {
-                return true;
+               return new DoctorDetails(
+                       doctor.getDoctorId(), doctor.getTitle(),
+                       doctor.getFirstName(), doctor.getLastName(),
+                       doctor.getEmail(), doctor.getPhoneNumber(),
+                       doctor.getRegistration_number(), doctor.getDob(),
+                       doctor.getGender(), doctor.getAddr(),
+                       doctor.getCity(), doctor.getPincode(),
+                       doctor.getDepartment().getDepartmentName()
+               );
             }
-            return false;
+            return null;
         } catch (Exception e) {
             System.out.println("Error Occured while verifying phone number");
             e.printStackTrace();
-            return false;
+            return null;
         }
     }
 }
