@@ -1,6 +1,7 @@
 package com.shield.eaarogya.Repository;
 
 import com.shield.eaarogya.Entity.Doctor;
+import com.shield.eaarogya.Entity.Patient;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,4 +14,6 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
 
 //    public List<Doctor> findDoctorsByDepartmentDept_id(int dept_id);
     public Doctor findByEmail(String email);
+
+    public Doctor findByPhoneNumber(long phoneNumber);
 }

@@ -27,7 +27,7 @@ public class Prescription {
     @Column(name = "remark", nullable = false)
     private String remark;
 
-    @Column(name = "follow_up_date", nullable = false)
+    @Column(name = "follow_up_date")
     @Temporal(TemporalType.DATE)
     private Date followUpDate;
 

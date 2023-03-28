@@ -1,5 +1,6 @@
 package com.shield.eaarogya.Service;
 
+import com.shield.eaarogya.DTO.FollowUpDetails;
 import com.shield.eaarogya.DTO.PrescriptionDetails;
 
 import java.util.List;
@@ -14,4 +15,6 @@ public interface PrescriptionService {
     public PrescriptionDetails addPrescription(PrescriptionDetails prescriptionDetails);
 
     public PrescriptionDetails getPrescriptionById(int prescriptionId);
+
+    public List<FollowUpDetails> getFollowUpDetails(long patientId);
 }

@@ -16,21 +16,45 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public Department saveDepartment(Department department) {
-        return departmentRepository.save(department);
+        try {
+            return departmentRepository.save(department);
+        } catch (Exception e) {
+            System.out.println("Error Occured while saving department to database.");
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
     public List<Department> fetchDepartmentList() {
-        return departmentRepository.findAll();
+        try {
+            return departmentRepository.findAll();
+        } catch (Exception e) {
+            System.out.println("Error Occured while fetching all the departments.");
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
     public Department getDepartmentById(int department_id) {
-        return departmentRepository.findById(department_id).get();
+        try {
+            return departmentRepository.findById(department_id).get();
+        } catch (Exception e) {
+            System.out.println("Error Occured while fetching department through department id.");
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
     public Department getDepartmentByName(String department_name) {
-        return departmentRepository.findDepartmentByDepartmentName(department_name);
+        try {
+            return departmentRepository.findDepartmentByDepartmentName(department_name);
+        } catch (Exception e) {
+            System.out.println("Error Occured while fetching department based on department name.");
+            e.printStackTrace();
+            return null;
+        }
     }
 }

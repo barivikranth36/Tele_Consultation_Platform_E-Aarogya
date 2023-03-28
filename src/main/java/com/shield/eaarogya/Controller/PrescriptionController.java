@@ -1,5 +1,6 @@
 package com.shield.eaarogya.Controller;
 
+import com.shield.eaarogya.DTO.FollowUpDetails;
 import com.shield.eaarogya.DTO.PrescriptionDetails;
 import com.shield.eaarogya.Service.PrescriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,12 @@ public class PrescriptionController {
     @GetMapping("/getPrescriptionById/{pres_id}")
     public PrescriptionDetails getPrescriptionById(@PathVariable String pres_id) {
         return this.prescriptionService.getPrescriptionById(Integer.parseInt(pres_id));
+    }
+
+    // Fetch follow-up dates with prescription details, if the prescription contain follow-up date for that particular patient.
+    @GetMapping("/getFollowUp/{patient_id}")
+    public List<FollowUpDetails> getFollowUpDetails(@PathVariable String patient_id) {
+        return prescriptionService.getFollowUpDetails(Long.parseLong(patient_id));
     }
 
 }

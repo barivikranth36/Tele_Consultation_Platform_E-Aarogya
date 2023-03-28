@@ -45,26 +45,32 @@ public class AppointmentServiceImpl implements AppointmentService {
         }
         catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Error Occured");
+            System.out.println("Error Occured while requesting for an appointment.");
             return -1;
         }
     }
 
     @Override
     public List<AppointmentDetails> getAllAppointments() {
-        List<AppointmentDetails> appointmentDetailsList = new ArrayList<>();
+        try {
+            List<AppointmentDetails> appointmentDetailsList = new ArrayList<>();
 
-        List<Appointment> appointmentList = appointmentRepository.findAll();
-        for(Appointment appointment: appointmentList) {
-            appointmentDetailsList.add(new AppointmentDetails(
-                    appointment.getAppointmentId(),
-                    appointment.getAppointmentTimestamp(),
-                    appointment.getPatient().getPatientId(),
-                    appointment.getDepartment().getDepartmentName()
-            ));
+            List<Appointment> appointmentList = appointmentRepository.findAll();
+            for (Appointment appointment : appointmentList) {
+                appointmentDetailsList.add(new AppointmentDetails(
+                        appointment.getAppointmentId(),
+                        appointment.getAppointmentTimestamp(),
+                        appointment.getPatient().getPatientId(),
+                        appointment.getDepartment().getDepartmentName()
+                ));
+            }
+
+            return appointmentDetailsList;
+        } catch (Exception e) {
+            System.out.println("Error Occured while fetching all appointments.");
+            e.printStackTrace();
+            return null;
         }
-
-        return appointmentDetailsList;
     }
 
     @Override
@@ -81,25 +87,37 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public int waitingPatients(long appointmentId) {
-        Appointment appointment = appointmentRepository.findByAppointmentId(appointmentId);
-        List<Appointment> appointmentList = appointmentRepository.findAllByDepartment_DepartmentNameAndAppointmentTimestampLessThan(
-                appointment.getDepartment().getDepartmentName() , appointment.getAppointmentTimestamp());
+        try {
+            Appointment appointment = appointmentRepository.findByAppointmentId(appointmentId);
+            List<Appointment> appointmentList = appointmentRepository.findAllByDepartment_DepartmentNameAndAppointmentTimestampLessThan(
+                    appointment.getDepartment().getDepartmentName(), appointment.getAppointmentTimestamp());
 
-        return appointmentList.size();
+            return appointmentList.size();
+        } catch (Exception e) {
+            System.out.println("Error Occured while fetching number of waiting patients.");
+            e.printStackTrace();
+            return -1;
+        }
     }
 
     @Override
     public List<AppointmentDetails> getAppointmentsByDepartment(String departmentName) {
-        List<Appointment> appointmentList = appointmentRepository.findAllByDepartment_DepartmentName(departmentName);
+        try {
+            List<Appointment> appointmentList = appointmentRepository.findAllByDepartment_DepartmentName(departmentName);
 
-        List<AppointmentDetails> appointmentDetailsList = new ArrayList<>();
+            List<AppointmentDetails> appointmentDetailsList = new ArrayList<>();
 
-        for(Appointment appointment: appointmentList) {
-            appointmentDetailsList.add(new AppointmentDetails(appointment.getAppointmentId(),
-                    appointment.getAppointmentTimestamp(), appointment.getPatient().getPatientId(),
-                    appointment.getDepartment().getDepartmentName()));
+            for (Appointment appointment : appointmentList) {
+                appointmentDetailsList.add(new AppointmentDetails(appointment.getAppointmentId(),
+                        appointment.getAppointmentTimestamp(), appointment.getPatient().getPatientId(),
+                        appointment.getDepartment().getDepartmentName()));
+            }
+
+            return appointmentDetailsList;
+        } catch (Exception e) {
+            System.out.println("Error Occured fetching appointments based on department name.");
+            e.printStackTrace();
+            return null;
         }
-
-        return appointmentDetailsList;
     }
 }

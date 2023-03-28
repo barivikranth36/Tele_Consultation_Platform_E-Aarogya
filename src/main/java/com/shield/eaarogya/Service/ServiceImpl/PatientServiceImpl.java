@@ -16,15 +16,18 @@ public class PatientServiceImpl implements PatientService {
     private PatientRepository patientRepository;
 
     // -------------------------- Testing DAO Layer --------------------------------------
-    @Override
-    public String testThis() {
-
-        return "Till here it worked fine yeahhhhhhhhh!!";
-    }
 
     @Override
     public List<Patient> getPatient() {
-        return (List<Patient>) this.patientRepository.findAll();
+        try {
+
+            return (List<Patient>) this.patientRepository.findAll();
+
+        } catch (Exception e) {
+            System.out.println("Error Occured while fetching all patients");
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
@@ -34,14 +37,39 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public Patient getPatientByPatientId(long patientId) {
-        return patientRepository.findById(patientId).get();
+        try {
+            return patientRepository.findById(patientId).get();
+        } catch (Exception e) {
+            System.out.println("Error Occured while fetching patient by patient Id");
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
     public Patient findByEmail(String email) {
-        return patientRepository.findByEmail(email);
+
+        try {
+            return patientRepository.findByEmail(email);
+        } catch (Exception e) {
+            System.out.println("Error occured while fetching patient by email");
+            e.printStackTrace();
+            return null;
+        }
     }
 
-
-
+    @Override
+    public boolean verifyPhoneNumber(long phoneNumber) {
+        try {
+            Patient patient = patientRepository.findByPhoneNo(phoneNumber);
+            if (patient != null) {
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            System.out.println("Error Occured while verifying phone number");
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
