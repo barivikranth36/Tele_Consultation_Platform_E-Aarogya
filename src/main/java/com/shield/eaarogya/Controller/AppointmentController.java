@@ -51,5 +51,9 @@ public class AppointmentController {
         return appointmentService.getAppointmentsByDepartment(departmentName);
     }
 
-    //
+    // ---------------------- Check if any appointment exist in database or not for a patient -------------------
+    @GetMapping("/checkAppointments/{patientId}")
+    public boolean checkForAppointments(@PathVariable String patientId) {
+        return appointmentService.checkAppointment(Long.parseLong(patientId));
+    }
 }

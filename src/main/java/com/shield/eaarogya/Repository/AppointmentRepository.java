@@ -17,4 +17,5 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     public List<Appointment> findAllByDepartment_DepartmentNameAndAppointmentTimestampLessThan(
             String departmentName, Date appointmentTimestamp);
 
+    public Appointment findByPatient_PatientId(long patientId);
 }

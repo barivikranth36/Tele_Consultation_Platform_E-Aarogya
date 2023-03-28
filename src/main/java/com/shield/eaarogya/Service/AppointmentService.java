@@ -22,4 +22,7 @@ public interface AppointmentService {
 
     // ----------------------- Get list of all appointments for a particular department ---------------------------
     public List<AppointmentDetails> getAppointmentsByDepartment(String departmentName);
+
+    // ------------------------ Check if any appointment is present for a patient ---------------------------------
+    public boolean checkAppointment(long patientId);
 }
