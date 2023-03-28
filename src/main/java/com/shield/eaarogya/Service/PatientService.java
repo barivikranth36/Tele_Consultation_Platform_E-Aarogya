@@ -17,5 +17,5 @@ public interface PatientService {
 
     public Patient findByEmail(String email);
 
-    public Patient getPatientByPhoneNumber(long phoneNumber);
+    public Patient getPatientByPhoneNumber(String phoneNumber);
 }

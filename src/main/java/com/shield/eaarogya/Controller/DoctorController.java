@@ -39,6 +39,6 @@ public class DoctorController {
     // ------------------------------ Get Doctor from Phone Number --------------------------------------
     @GetMapping("/getDoctorByPhoneNumber/{phoneNumber}")
     public DoctorDetails getDoctorByPhoneNumber(@PathVariable String phoneNumber) {
-        return doctorService.getDoctorByPhoneNumber(Long.parseLong(phoneNumber));
+        return doctorService.getDoctorByPhoneNumber(phoneNumber);
     }
 }

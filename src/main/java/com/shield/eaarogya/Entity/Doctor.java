@@ -20,7 +20,7 @@ public class Doctor {
     private String lastName;
 
     @Column(name = "phoneNumber", nullable = false, unique = true)
-    private long phoneNumber;
+    private String phoneNumber;
 
     @Column(name = "email", nullable = false, unique = true)
     private String email;
@@ -60,7 +60,7 @@ public class Doctor {
     public Doctor() {
     }
 
-    public Doctor(String title, String firstName, String lastName, long phoneNumber, String email, String registration_number, Date dob, String gender, String addr, String city, long pincode, Department department) {
+    public Doctor(String title, String firstName, String lastName, String phoneNumber, String email, String registration_number, Date dob, String gender, String addr, String city, long pincode, Department department) {
         this.title = title;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -117,11 +117,11 @@ public class Doctor {
         this.email = email;
     }
 
-    public long getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(long phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 

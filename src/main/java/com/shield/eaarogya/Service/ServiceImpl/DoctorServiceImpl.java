@@ -93,7 +93,7 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
-    public DoctorDetails getDoctorByPhoneNumber(long phoneNumber) {
+    public DoctorDetails getDoctorByPhoneNumber(String phoneNumber) {
         try {
             Doctor doctor = doctorRepository.findByPhoneNumber(phoneNumber);
             if (doctor != null) {

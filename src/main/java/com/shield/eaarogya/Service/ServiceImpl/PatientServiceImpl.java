@@ -59,7 +59,7 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public Patient getPatientByPhoneNumber(long phoneNumber) {
+    public Patient getPatientByPhoneNumber(String phoneNumber) {
         try {
             Patient patient = patientRepository.findByPhoneNo(phoneNumber);
             if (patient != null) {

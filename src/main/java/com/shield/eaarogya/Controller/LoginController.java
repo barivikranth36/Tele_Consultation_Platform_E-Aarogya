@@ -33,7 +33,7 @@ public class LoginController {
     // -------------------------------- Verify Doctor Phone Number ---------------------------------------
     @GetMapping("/verifyDoctorPhoneNumber/{phoneNumber}")
     public boolean verifyDoctorPhoneNumber(@PathVariable String phoneNumber) {
-        DoctorDetails doctorDetails = doctorService.getDoctorByPhoneNumber(Long.parseLong(phoneNumber));
+        DoctorDetails doctorDetails = doctorService.getDoctorByPhoneNumber(phoneNumber);
         if(doctorDetails != null)
             return true;
         else return false;
@@ -42,7 +42,7 @@ public class LoginController {
     //------------------------------------ Verify Patient Phone Number -------------------------------------
     @GetMapping("/verifyPatientPhoneNumber/{phoneNumber}")
     public boolean verifyPatientPhoneNumber(@PathVariable String phoneNumber) {
-       Patient patient = patientService.getPatientByPhoneNumber(Long.parseLong(phoneNumber));
+       Patient patient = patientService.getPatientByPhoneNumber(phoneNumber);
        if(patient != null) {
            return true;
        }
