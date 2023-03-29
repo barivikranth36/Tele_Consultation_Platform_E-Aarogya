@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -174,19 +175,21 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     // ---------------------------------------- Doctor's Daily Log ----------------------------------------------
 
     @Override
-    public List<DailyLogDetails> doctorDailyLog(DailyLogDetails dailyLogDetails) {
+    public List<DailyLogDetails> doctorDailyLog(long doctorId) {
 
-        List<Prescription> prescriptionList = prescriptionRepository.findPrescriptionsByDoctor_DoctorId(dailyLogDetails.getDoctorId());
+        List<Prescription> prescriptionList = prescriptionRepository.findPrescriptionsByDoctor_DoctorId(doctorId);
 
         List<DailyLogDetails> dailyLogDetailsList = new ArrayList<>();
 
         // We'll compare the dates in string format, we'll convert consultation date and current date to the below pattern
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
+        System.out.println("At Daily log api");
         if(prescriptionList != null) {
 //            System.out.println("We got something");
+
 //            System.out.println(dateFormat.format(dailyLogDetails.getCurrentDate()));
-            String currentDate = dateFormat.format(dailyLogDetails.getCurrentDate());
+            String currentDate = dateFormat.format(new Date());
 
             for(Prescription prescription: prescriptionList) {
 //                System.out.println(dateFormat.format(prescription.getConsultationDate()));

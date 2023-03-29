@@ -33,6 +33,12 @@ public class PatientController {
         }
     }
 
+    // ------------------------------- Get Patient by Patient Id ------------------------------------
+    @GetMapping("/getPatientById/{patientId}")
+    public Patient getPatientById(@PathVariable String patientId) {
+        return patientService.getPatientByPatientId(Long.parseLong(patientId));
+    }
+
     // ------------------------------- Get Patient details by patient email --------------------------------------
     @GetMapping("/getpatientByEmail/{email}")
     public Patient getPatientByEmail(@PathVariable String email) {
