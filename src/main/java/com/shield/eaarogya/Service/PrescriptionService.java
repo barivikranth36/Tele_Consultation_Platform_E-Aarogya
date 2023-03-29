@@ -1,5 +1,6 @@
 package com.shield.eaarogya.Service;
 
+import com.shield.eaarogya.DTO.DailyLogDetails;
 import com.shield.eaarogya.DTO.FollowUpDetails;
 import com.shield.eaarogya.DTO.PrescriptionDetails;
 
@@ -17,4 +18,6 @@ public interface PrescriptionService {
     public PrescriptionDetails getPrescriptionById(int prescriptionId);
 
     public List<FollowUpDetails> getFollowUpDetails(long patientId);
+
+    public List<DailyLogDetails> doctorDailyLog(DailyLogDetails dailyLogDetails);
 }

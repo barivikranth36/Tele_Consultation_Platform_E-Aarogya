@@ -1,5 +1,6 @@
 package com.shield.eaarogya.Controller;
 
+import com.shield.eaarogya.DTO.DailyLogDetails;
 import com.shield.eaarogya.DTO.FollowUpDetails;
 import com.shield.eaarogya.DTO.PrescriptionDetails;
 import com.shield.eaarogya.Service.PrescriptionService;
@@ -46,4 +47,10 @@ public class PrescriptionController {
         return prescriptionService.getFollowUpDetails(Long.parseLong(patient_id));
     }
 
+    // ---------------------------------- Fetch Doctor's Daily Log based on doctor id ---------------------------------
+    @GetMapping("/doctorDailyLog")
+    public List<DailyLogDetails> doctorDailyLog(@RequestBody DailyLogDetails dailyLogDetails) {
+        return prescriptionService.doctorDailyLog(dailyLogDetails);
+//        return null;
+    }
 }

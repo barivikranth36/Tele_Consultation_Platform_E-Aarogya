@@ -1,5 +1,6 @@
 package com.shield.eaarogya.Service.ServiceImpl;
 
+import com.shield.eaarogya.DTO.DailyLogDetails;
 import com.shield.eaarogya.DTO.FollowUpDetails;
 import com.shield.eaarogya.Repository.DoctorRepository;
 import com.shield.eaarogya.Repository.PatientRepository;
@@ -12,6 +13,8 @@ import com.shield.eaarogya.Service.PrescriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -166,5 +169,39 @@ public class PrescriptionServiceImpl implements PrescriptionService {
             e.printStackTrace();
             return null;
         }
+    }
+
+    // ---------------------------------------- Doctor's Daily Log ----------------------------------------------
+
+    @Override
+    public List<DailyLogDetails> doctorDailyLog(DailyLogDetails dailyLogDetails) {
+
+        List<Prescription> prescriptionList = prescriptionRepository.findPrescriptionsByDoctor_DoctorId(dailyLogDetails.getDoctorId());
+
+        List<DailyLogDetails> dailyLogDetailsList = new ArrayList<>();
+
+        // We'll compare the dates in string format, we'll convert consultation date and current date to the below pattern
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        if(prescriptionList != null) {
+//            System.out.println("We got something");
+//            System.out.println(dateFormat.format(dailyLogDetails.getCurrentDate()));
+            String currentDate = dateFormat.format(dailyLogDetails.getCurrentDate());
+
+            for(Prescription prescription: prescriptionList) {
+//                System.out.println(dateFormat.format(prescription.getConsultationDate()));
+                String consultationDate = dateFormat.format(prescription.getConsultationDate());
+                if(currentDate.equals(consultationDate)) {
+                    dailyLogDetailsList.add(new DailyLogDetails(
+                            prescription.getDoctor().getDoctorId(),
+                            prescription.getConsultationDate(),
+                            prescription.getPatient().getPatientId(),
+                            prescription.getObservation()
+                    ));
+                }
+            }
+            return dailyLogDetailsList;
+        }
+        return null;
     }
 }
