@@ -19,5 +19,5 @@ public interface PrescriptionService {
 
     public List<FollowUpDetails> getFollowUpDetails(long patientId);
 
-    public List<DailyLogDetails> doctorDailyLog(DailyLogDetails dailyLogDetails);
+    public List<DailyLogDetails> doctorDailyLog(long doctorId);
 }

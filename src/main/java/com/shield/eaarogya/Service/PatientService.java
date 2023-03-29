@@ -11,11 +11,13 @@ public interface PatientService {
 
     public List<Patient> getPatient();
 
-    public boolean addPatient(PatientDetails patientDetails);
+    public Patient addPatient(Patient patient);
 
     public Patient getPatientByPatientId(long patientId);
 
     public Patient findByEmail(String email);
 
     public Patient getPatientByPhoneNumber(String phoneNumber);
+
+    public Patient updatePatient(Patient patient, long patientId);
 }

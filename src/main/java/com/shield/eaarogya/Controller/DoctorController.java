@@ -1,8 +1,11 @@
 package com.shield.eaarogya.Controller;
 
+import com.shield.eaarogya.DTO.DailyLogDetails;
 import com.shield.eaarogya.DTO.DoctorDetails;
 import com.shield.eaarogya.Entity.Patient;
+import com.shield.eaarogya.Repository.PatientRepository;
 import com.shield.eaarogya.Service.DoctorService;
+import com.shield.eaarogya.Service.PrescriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +18,9 @@ public class DoctorController {
 
     @Autowired
     private DoctorService doctorService;
+
+    @Autowired
+    private PrescriptionService prescriptionService;
 
     // ----------------------------------------- Register a Doctor -----------------------------------------
     @PostMapping("/registerDoctor")
@@ -40,5 +46,11 @@ public class DoctorController {
     @GetMapping("/getDoctorByPhoneNumber/{phoneNumber}")
     public DoctorDetails getDoctorByPhoneNumber(@PathVariable String phoneNumber) {
         return doctorService.getDoctorByPhoneNumber(phoneNumber);
+    }
+
+    // ---------------------------------- Fetch Doctor's Daily Log based on doctor id ---------------------------------
+    @GetMapping("/doctorDailyLog/{doctorId}")
+    public List<DailyLogDetails> doctorDailyLog(@PathVariable String doctorId) {
+        return prescriptionService.doctorDailyLog(Long.parseLong(doctorId));
     }
 }

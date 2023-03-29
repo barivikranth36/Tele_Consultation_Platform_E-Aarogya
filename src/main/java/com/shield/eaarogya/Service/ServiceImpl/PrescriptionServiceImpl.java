@@ -10,12 +10,14 @@ import com.shield.eaarogya.Entity.Doctor;
 import com.shield.eaarogya.Entity.Patient;
 import com.shield.eaarogya.Entity.Prescription;
 import com.shield.eaarogya.Service.PrescriptionService;
+import org.hibernate.boot.archive.scan.spi.ScanOptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -174,9 +176,9 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     // ---------------------------------------- Doctor's Daily Log ----------------------------------------------
 
     @Override
-    public List<DailyLogDetails> doctorDailyLog(DailyLogDetails dailyLogDetails) {
+    public List<DailyLogDetails> doctorDailyLog(long doctorId) {
 
-        List<Prescription> prescriptionList = prescriptionRepository.findPrescriptionsByDoctor_DoctorId(dailyLogDetails.getDoctorId());
+        List<Prescription> prescriptionList = prescriptionRepository.findPrescriptionsByDoctor_DoctorId(doctorId);
 
         List<DailyLogDetails> dailyLogDetailsList = new ArrayList<>();
 
@@ -186,7 +188,8 @@ public class PrescriptionServiceImpl implements PrescriptionService {
         if(prescriptionList != null) {
 //            System.out.println("We got something");
 //            System.out.println(dateFormat.format(dailyLogDetails.getCurrentDate()));
-            String currentDate = dateFormat.format(dailyLogDetails.getCurrentDate());
+            String currentDate = dateFormat.format(new Date());
+//            System.out.println(currentDate);
 
             for(Prescription prescription: prescriptionList) {
 //                System.out.println(dateFormat.format(prescription.getConsultationDate()));

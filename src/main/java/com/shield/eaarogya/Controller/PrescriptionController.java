@@ -47,10 +47,4 @@ public class PrescriptionController {
         return prescriptionService.getFollowUpDetails(Long.parseLong(patient_id));
     }
 
-    // ---------------------------------- Fetch Doctor's Daily Log based on doctor id ---------------------------------
-    @GetMapping("/doctorDailyLog")
-    public List<DailyLogDetails> doctorDailyLog(@RequestBody DailyLogDetails dailyLogDetails) {
-        return prescriptionService.doctorDailyLog(dailyLogDetails);
-//        return null;
-    }
 }

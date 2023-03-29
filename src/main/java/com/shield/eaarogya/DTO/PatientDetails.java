@@ -15,7 +15,7 @@ public class PatientDetails {
 
     private String title;
 
-    private String fullName;
+    private String firstName;
 
     private String lastName;
 
@@ -40,10 +40,10 @@ public class PatientDetails {
     public PatientDetails() {
     }
 
-    public PatientDetails(long patientId, String title, String fullName, String lastName, String gender, String phoneNo, String email, Date dob, String addr, String city, long pincode) {
+    public PatientDetails(long patientId, String title, String firstName, String lastName, String gender, String phoneNo, String email, Date dob, String addr, String city, long pincode) {
         this.patientId = patientId;
         this.title = title;
-        this.fullName = fullName;
+        this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
         this.phoneNo = phoneNo;
@@ -61,7 +61,7 @@ public class PatientDetails {
         return "PatientDetails{" +
                 "patientId=" + patientId +
                 ", title='" + title + '\'' +
-                ", fName='" + fullName + '\'' +
+                ", fName='" + firstName + '\'' +
                 ", lName='" + lastName + '\'' +
                 ", gender='" + gender + '\'' +
                 ", phoneNo=" + phoneNo +
