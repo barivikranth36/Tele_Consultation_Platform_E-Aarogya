@@ -39,7 +39,7 @@ public class DoctorServiceImpl implements DoctorService {
             doctorRepository.save(doctor);
             return doctorDetails;
         } catch (Exception e) {
-            System.out.println("Error Occured while adding doctor to the databse");
+            System.out.println("Error Occurred while adding doctor to the database");
             e.printStackTrace();
             return null;
         }
@@ -65,7 +65,7 @@ public class DoctorServiceImpl implements DoctorService {
 
             return doctorDetailsList;
         } catch (Exception e) {
-            System.out.println("Error Occured while getting list of all doctors");
+            System.out.println("Error Occurred while getting list of all doctors");
             e.printStackTrace();
             return null;
         }
@@ -86,7 +86,7 @@ public class DoctorServiceImpl implements DoctorService {
                     doctor.getPincode(),
                     doctor.getDepartment().getDepartmentName());
         } catch (Exception e) {
-            System.out.println("Error Occured while getting doctor details from email");
+            System.out.println("Error Occurred while getting doctor details from email");
             e.printStackTrace();
             return null;
         }
@@ -109,7 +109,7 @@ public class DoctorServiceImpl implements DoctorService {
             }
             return null;
         } catch (Exception e) {
-            System.out.println("Error Occured while verifying phone number");
+            System.out.println("Error Occurred while verifying phone number");
             e.printStackTrace();
             return null;
         }
