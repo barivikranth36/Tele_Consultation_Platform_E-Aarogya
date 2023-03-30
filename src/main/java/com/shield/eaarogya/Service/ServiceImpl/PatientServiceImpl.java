@@ -24,7 +24,7 @@ public class PatientServiceImpl implements PatientService {
             return (List<Patient>) this.patientRepository.findAll();
 
         } catch (Exception e) {
-            System.out.println("Error Occured while fetching all patients");
+            System.out.println("Error Occurred while fetching all patients");
             e.printStackTrace();
             return null;
         }
@@ -38,9 +38,11 @@ public class PatientServiceImpl implements PatientService {
     @Override
     public Patient getPatientByPatientId(long patientId) {
         try {
-            return patientRepository.findById(patientId).get();
+            if(patientRepository.findById(patientId).isPresent())
+                return patientRepository.findById(patientId).get();
+            else return null;
         } catch (Exception e) {
-            System.out.println("Error Occured while fetching patient by patient Id");
+            System.out.println("Error Occurred while fetching patient by patient Id");
             e.printStackTrace();
             return null;
         }
@@ -52,7 +54,7 @@ public class PatientServiceImpl implements PatientService {
         try {
             return patientRepository.findByEmail(email);
         } catch (Exception e) {
-            System.out.println("Error occured while fetching patient by email");
+            System.out.println("Error occurred while fetching patient by email");
             e.printStackTrace();
             return null;
         }
@@ -67,7 +69,7 @@ public class PatientServiceImpl implements PatientService {
             }
             return null;
         } catch (Exception e) {
-            System.out.println("Error Occured while verifying phone number");
+            System.out.println("Error Occurred while verifying phone number");
             e.printStackTrace();
             return null;
         }

@@ -19,7 +19,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         try {
             return departmentRepository.save(department);
         } catch (Exception e) {
-            System.out.println("Error Occured while saving department to database.");
+            System.out.println("Error Occurred while saving department to database.");
             e.printStackTrace();
             return null;
         }
@@ -30,7 +30,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         try {
             return departmentRepository.findAll();
         } catch (Exception e) {
-            System.out.println("Error Occured while fetching all the departments.");
+            System.out.println("Error Occurred while fetching all the departments.");
             e.printStackTrace();
             return null;
         }
@@ -39,9 +39,11 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public Department getDepartmentById(int department_id) {
         try {
-            return departmentRepository.findById(department_id).get();
+            if(departmentRepository.findById(department_id).isPresent())
+                return departmentRepository.findById(department_id).get();
+            else return null;
         } catch (Exception e) {
-            System.out.println("Error Occured while fetching department through department id.");
+            System.out.println("Error Occurred while fetching department through department id.");
             e.printStackTrace();
             return null;
         }
@@ -52,7 +54,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         try {
             return departmentRepository.findDepartmentByDepartmentName(department_name);
         } catch (Exception e) {
-            System.out.println("Error Occured while fetching department based on department name.");
+            System.out.println("Error Occurred while fetching department based on department name.");
             e.printStackTrace();
             return null;
         }

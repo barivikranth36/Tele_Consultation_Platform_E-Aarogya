@@ -153,7 +153,7 @@ public class PdfServiceImpl implements PdfService {
 
             return new ByteArrayInputStream(out.toByteArray());
         } catch (Exception e) {
-            System.out.println("Error Occured in creating prescription pdf");
+            System.out.println("Error Occurred in creating prescription pdf");
             e.printStackTrace();
             return null;
         }
