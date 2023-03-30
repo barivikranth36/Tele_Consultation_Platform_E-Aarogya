@@ -75,9 +75,10 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public boolean deleteAppointment(long appointmentId) {
-
+        System.out.println("Appointment Service");
         try {
             Appointment appointment = appointmentRepository.findByAppointmentId(appointmentId);
+            System.out.println("Appointment Fetched");
             appointmentRepository.delete(appointment);
             return true;
         } catch (Exception e) {

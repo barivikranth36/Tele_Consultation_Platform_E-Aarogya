@@ -99,11 +99,12 @@ public class PrescriptionServiceImpl implements PrescriptionService {
                 prescribingDoctor = doctorRepository.findById(prescriptionDetails.getDoctorId()).get();
                 prescribedPatient = patientRepository.findById(prescriptionDetails.getPatientId()).get();
 
-                Prescription prescription = new Prescription(prescriptionDetails.getConsultationDate(),
+                Prescription prescription = new Prescription(
+                        prescriptionDetails.getConsultationDate(),
                         prescriptionDetails.getObservation(),
                         prescriptionDetails.getMedicine(),
                         prescriptionDetails.getRemark(),
-                        prescriptionDetails.getConsultationDate(),
+                        prescriptionDetails.getFollowUpDate(),
                         prescribingDoctor,
                         prescribedPatient);
 

@@ -42,7 +42,8 @@ public class AppointmentController {
     // -------------------------- Delete a Particular Appointment based on patient Id----------------------------
     @DeleteMapping("/deleteAppointmentByPatientId/{patientId}")
     public boolean deleteAppointmentByPatientId(@PathVariable String patientId) {
-        return appointmentService.deleteAppointment(Long.parseLong(patientId));
+        System.out.println("Reached App controller");
+        return appointmentService.deleteAppointmentByPatientId(Long.parseLong(patientId));
     }
 
     // -------------------------------- Patients waiting based on appointment Id ---------------------------------------------
