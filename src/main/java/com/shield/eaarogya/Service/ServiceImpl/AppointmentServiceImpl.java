@@ -85,6 +85,17 @@ public class AppointmentServiceImpl implements AppointmentService {
         }
     }
 
+    @Override
+    public boolean deleteAppointmentByPatientId(long patientId) {
+        try {
+            Appointment appointment = appointmentRepository.findByPatient_PatientId(patientId);
+            appointmentRepository.delete(appointment);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     // Based on appointment Id, it will give the count of patient infront of him.
     @Override
     public int waitingPatients(long appointmentId) {

@@ -17,6 +17,9 @@ public interface AppointmentService {
     // -------------------------------------- Delete a specific Appointment --------------------------------------
     public boolean deleteAppointment(long appointmentId);
 
+    // -------------------------------------- Delete a specific Appointment --------------------------------------
+    public boolean deleteAppointmentByPatientId(long patientId);
+
     // ---------------------- Get list of all waiting patients (Queue) for a particular department -----------------
     public int waitingPatients(long appointment);
 
