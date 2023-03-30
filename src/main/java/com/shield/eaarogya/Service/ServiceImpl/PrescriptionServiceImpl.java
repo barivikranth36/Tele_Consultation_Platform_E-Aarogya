@@ -10,7 +10,6 @@ import com.shield.eaarogya.Entity.Doctor;
 import com.shield.eaarogya.Entity.Patient;
 import com.shield.eaarogya.Entity.Prescription;
 import com.shield.eaarogya.Service.PrescriptionService;
-import org.hibernate.boot.archive.scan.spi.ScanOptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,7 +37,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
         try {
             List<Prescription> prescriptionList = prescriptionRepository.findPrescriptionsByPatient_PatientId(patientId);
 
-            List<PrescriptionDetails> prescriptionDetailsList = new ArrayList<PrescriptionDetails>();
+            List<PrescriptionDetails> prescriptionDetailsList = new ArrayList<>();
 
             for (Prescription prescription : prescriptionList) {
                 prescriptionDetailsList.add(new PrescriptionDetails(prescription.getPrescriptionId(),
@@ -53,7 +52,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
             return prescriptionDetailsList;
         } catch (Exception e) {
-            System.out.println("Error Occured in getting prescription details of a patient");
+            System.out.println("Error occurred in getting prescription details of a patient");
             e.printStackTrace();
             return null;
         }
@@ -64,9 +63,9 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     public List<PrescriptionDetails> getAllPrescriptions() {
 
         try {
-            List<Prescription> prescriptionList = (List<Prescription>) this.prescriptionRepository.findAll();
+            List<Prescription> prescriptionList = this.prescriptionRepository.findAll();
 
-            List<PrescriptionDetails> prescriptionDetailsList = new ArrayList<PrescriptionDetails>();
+            List<PrescriptionDetails> prescriptionDetailsList = new ArrayList<>();
 
             for (Prescription prescription : prescriptionList) {
                 prescriptionDetailsList.add(new PrescriptionDetails(prescription.getPrescriptionId(),
@@ -81,7 +80,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
             }
             return prescriptionDetailsList;
         } catch (Exception e) {
-            System.out.println("Error Occured in getting all Prescriptions");
+            System.out.println("Error Occurred in getting all Prescriptions");
             e.printStackTrace();
             return null;
         }
@@ -91,24 +90,30 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     @Override
     public PrescriptionDetails addPrescription(PrescriptionDetails prescriptionDetails) {
 
+        Doctor prescribingDoctor;
+        Patient prescribedPatient;
         try {
-            Doctor prescribingDoctor = doctorRepository.findById(prescriptionDetails.getDoctorId()).get();
+            if(doctorRepository.findById(prescriptionDetails.getDoctorId()).isPresent() &&
+                    patientRepository.findById(prescriptionDetails.getPatientId()).isPresent()) {
 
-            Patient prescribedPatient = patientRepository.findById(prescriptionDetails.getPatientId()).get();
+                prescribingDoctor = doctorRepository.findById(prescriptionDetails.getDoctorId()).get();
+                prescribedPatient = patientRepository.findById(prescriptionDetails.getPatientId()).get();
 
-            Prescription prescription = new Prescription(prescriptionDetails.getConsultationDate(),
-                    prescriptionDetails.getObservation(),
-                    prescriptionDetails.getMedicine(),
-                    prescriptionDetails.getRemark(),
-                    prescriptionDetails.getConsultationDate(),
-                    prescribingDoctor,
-                    prescribedPatient);
+                Prescription prescription = new Prescription(prescriptionDetails.getConsultationDate(),
+                        prescriptionDetails.getObservation(),
+                        prescriptionDetails.getMedicine(),
+                        prescriptionDetails.getRemark(),
+                        prescriptionDetails.getConsultationDate(),
+                        prescribingDoctor,
+                        prescribedPatient);
 
-            prescriptionRepository.save(prescription);
-            return prescriptionDetails;
+                prescriptionRepository.save(prescription);
+                return prescriptionDetails;
+            }
+            else return null;
 
         } catch (Exception e) {
-            System.out.println("Error Occured while saving the prescription.");
+            System.out.println("Error Occurred while saving the prescription.");
             e.printStackTrace();
             return null;
         }
@@ -118,31 +123,29 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     @Override
     public PrescriptionDetails getPrescriptionById(int prescriptionId) {
 
+        Prescription prescription;
         try {
-            Prescription prescription = prescriptionRepository.findById(prescriptionId).get();
+            if(prescriptionRepository.findById(prescriptionId).isPresent()) {
+                prescription = prescriptionRepository.findById(prescriptionId).get();
 
-            return new PrescriptionDetails(prescription.getPrescriptionId(),
-                    prescription.getConsultationDate(), prescription.getObservation(),
-                    prescription.getMedicine(),
-                    prescription.getRemark(),
-                    prescription.getDoctor().getFirstName() + " " + prescription.getDoctor().getLastName(),
-                    prescription.getDoctor().getDoctorId(),
-                    prescription.getPatient().getFirstName() + " " + prescription.getPatient().getLastName(),
-                    prescription.getPatient().getPatientId(),
-                    prescription.getFollowUpDate());
+                return new PrescriptionDetails(prescription.getPrescriptionId(),
+                        prescription.getConsultationDate(), prescription.getObservation(),
+                        prescription.getMedicine(),
+                        prescription.getRemark(),
+                        prescription.getDoctor().getFirstName() + " " + prescription.getDoctor().getLastName(),
+                        prescription.getDoctor().getDoctorId(),
+                        prescription.getPatient().getFirstName() + " " + prescription.getPatient().getLastName(),
+                        prescription.getPatient().getPatientId(),
+                        prescription.getFollowUpDate());
+            }
+            return null;
 
         } catch (Exception e) {
-            System.out.println("Error Occured in getting prescription by prescriptionId");
+            System.out.println("Error Occurred in getting prescription by prescriptionId");
             e.printStackTrace();
             return null;
         }
     }
-//    @Override
-//    public List<Prescription> getPrescriptions(Long pres_id) {
-////        Integer presId = new Integer(pres_id);
-//        return this.prescriptionDAO.findByPatientId(pres_id);
-//    }
-
 
     // ---------------------- Return Follow-up details for the particular patient -----------------------------
 
@@ -167,7 +170,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
             return followUpDetailsList;
         } catch (Exception e) {
-            System.out.println("Error Occured in getting followup dates");
+            System.out.println("Error Occurred in getting followup dates");
             e.printStackTrace();
             return null;
         }
@@ -186,13 +189,10 @@ public class PrescriptionServiceImpl implements PrescriptionService {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         if(prescriptionList != null) {
-//            System.out.println("We got something");
-//            System.out.println(dateFormat.format(dailyLogDetails.getCurrentDate()));
+
             String currentDate = dateFormat.format(new Date());
-//            System.out.println(currentDate);
 
             for(Prescription prescription: prescriptionList) {
-//                System.out.println(dateFormat.format(prescription.getConsultationDate()));
                 String consultationDate = dateFormat.format(prescription.getConsultationDate());
                 if(currentDate.equals(consultationDate)) {
                     dailyLogDetailsList.add(new DailyLogDetails(
