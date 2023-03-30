@@ -10,6 +10,7 @@ import com.shield.eaarogya.Entity.Doctor;
 import com.shield.eaarogya.Entity.Patient;
 import com.shield.eaarogya.Entity.Prescription;
 import com.shield.eaarogya.Service.PrescriptionService;
+import org.hibernate.boot.archive.scan.spi.ScanOptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -184,12 +185,11 @@ public class PrescriptionServiceImpl implements PrescriptionService {
         // We'll compare the dates in string format, we'll convert consultation date and current date to the below pattern
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-        System.out.println("At Daily log api");
         if(prescriptionList != null) {
 //            System.out.println("We got something");
-
 //            System.out.println(dateFormat.format(dailyLogDetails.getCurrentDate()));
             String currentDate = dateFormat.format(new Date());
+//            System.out.println(currentDate);
 
             for(Prescription prescription: prescriptionList) {
 //                System.out.println(dateFormat.format(prescription.getConsultationDate()));

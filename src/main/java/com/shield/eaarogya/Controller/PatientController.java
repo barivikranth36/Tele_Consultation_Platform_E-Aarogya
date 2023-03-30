@@ -24,13 +24,8 @@ public class PatientController {
 
     // -------------------------------- Adding Patient to database -------------------------------
     @PostMapping("/addPatient")
-    public boolean addPatient(PatientDetails patientDetails) {
-        try {
-            return this.patientService.addPatient(patientDetails);
-        }
-        catch (Exception e) {
-            return false;
-        }
+    public Patient addPatient(Patient patient) {
+        return this.patientService.addPatient(patient);
     }
 
     // ------------------------------- Get Patient by Patient Id ------------------------------------
@@ -43,7 +38,6 @@ public class PatientController {
     @GetMapping("/getpatientByEmail/{email}")
     public Patient getPatientByEmail(@PathVariable String email) {
 //        String email = loginCredentials.getEmail();
-
         return patientService.findByEmail(email);
     }
 
@@ -51,5 +45,12 @@ public class PatientController {
     @GetMapping("/getPatientByPhoneNumber/{phoneNumber}")
     public Patient getPatientByPhoneNumber(@PathVariable String phoneNumber) {
         return patientService.getPatientByPhoneNumber(phoneNumber);
+    }
+
+    // ----------------------------- Update Patient by Patient Id ----------------------------------------
+    // (You have to send every details to the API)
+    @PutMapping("/updatePatient/{patientId}")
+    public Patient updatePatient(@RequestBody Patient patient, @PathVariable String patientId) {
+        return patientService.updatePatient(patient, Long.parseLong(patientId));
     }
 }

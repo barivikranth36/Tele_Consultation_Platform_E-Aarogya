@@ -3,6 +3,7 @@ package com.shield.eaarogya.Controller;
 import com.shield.eaarogya.DTO.DailyLogDetails;
 import com.shield.eaarogya.DTO.DoctorDetails;
 import com.shield.eaarogya.Entity.Patient;
+import com.shield.eaarogya.Repository.PatientRepository;
 import com.shield.eaarogya.Service.DoctorService;
 import com.shield.eaarogya.Service.PrescriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +52,5 @@ public class DoctorController {
     @GetMapping("/doctorDailyLog/{doctorId}")
     public List<DailyLogDetails> doctorDailyLog(@PathVariable String doctorId) {
         return prescriptionService.doctorDailyLog(Long.parseLong(doctorId));
-//        return null;
     }
 }

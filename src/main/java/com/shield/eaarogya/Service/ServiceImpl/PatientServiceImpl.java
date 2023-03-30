@@ -31,8 +31,8 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public boolean addPatient(PatientDetails patientDetails) {
-        return false;
+    public Patient addPatient(Patient patient) {
+        return patientRepository.save(patient);
     }
 
     @Override
@@ -71,5 +71,23 @@ public class PatientServiceImpl implements PatientService {
             e.printStackTrace();
             return null;
         }
+    }
+
+    @Override
+    public Patient updatePatient(Patient patient, long patientId) {
+        Patient updatedPatient = patientRepository.findById(patientId).get();
+
+        updatedPatient.setTitle(patient.getTitle());
+        updatedPatient.setFirstName(patient.getFirstName());
+        updatedPatient.setLastName(patient.getLastName());
+        updatedPatient.setPhoneNo(patient.getPhoneNo());
+        updatedPatient.setPincode(patient.getPincode());
+        updatedPatient.setAddr(patient.getAddr());
+        updatedPatient.setCity(patient.getCity());
+        updatedPatient.setDob(patient.getDob());
+        updatedPatient.setGender(patient.getGender());
+        updatedPatient.setEmail(patient.getEmail());
+
+        return patientRepository.save(updatedPatient);
     }
 }
