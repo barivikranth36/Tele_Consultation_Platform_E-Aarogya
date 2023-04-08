@@ -158,14 +158,26 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
             List<FollowUpDetails> followUpDetailsList = new ArrayList<>();
 
+            // We'll compare the dates in string format, we'll convert consultation date and current date to the below pattern
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
             for (Prescription prescription : prescriptionList) {
                 if (prescription.getFollowUpDate() != null) {
-                    followUpDetailsList.add(new FollowUpDetails(
-                            prescription.getFollowUpDate(),
-                            prescription.getDoctor().getDepartment().getDepartmentName(),
-                            prescription.getDoctor().getFirstName() + prescription.getDoctor().getLastName(),
-                            prescription.getObservation()
-                    ));
+
+                    String currentDate = dateFormat.format(new Date());
+
+                    String followUpDate = dateFormat.format(prescription.getFollowUpDate());
+
+                    Date followUpDateObject = new SimpleDateFormat("yyyy-MM-dd").parse(followUpDate);
+                    Date currentDateObject = new SimpleDateFormat("yyyy-MM-dd").parse(currentDate);
+                    if(followUpDateObject.after(currentDateObject)) {
+                        followUpDetailsList.add(new FollowUpDetails(
+                                prescription.getFollowUpDate(),
+                                prescription.getDoctor().getDepartment().getDepartmentName(),
+                                prescription.getDoctor().getFirstName() + prescription.getDoctor().getLastName(),
+                                prescription.getObservation()
+                        ));
+                    }
                 }
             }
 
