@@ -103,7 +103,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
                         prescriptionDetails.getObservation(),
                         prescriptionDetails.getMedicine(),
                         prescriptionDetails.getRemark(),
-                        prescriptionDetails.getConsultationDate(),
+                        prescriptionDetails.getFollowUpDate(),
                         prescribingDoctor,
                         prescribedPatient);
 
