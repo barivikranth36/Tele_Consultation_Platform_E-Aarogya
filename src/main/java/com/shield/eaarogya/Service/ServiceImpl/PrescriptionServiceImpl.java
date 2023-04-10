@@ -15,9 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class PrescriptionServiceImpl implements PrescriptionService {
@@ -92,6 +90,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
         Doctor prescribingDoctor;
         Patient prescribedPatient;
+
         try {
             if(doctorRepository.findById(prescriptionDetails.getDoctorId()).isPresent() &&
                     patientRepository.findById(prescriptionDetails.getPatientId()).isPresent()) {
@@ -99,13 +98,15 @@ public class PrescriptionServiceImpl implements PrescriptionService {
                 prescribingDoctor = doctorRepository.findById(prescriptionDetails.getDoctorId()).get();
                 prescribedPatient = patientRepository.findById(prescriptionDetails.getPatientId()).get();
 
-                Prescription prescription = new Prescription(prescriptionDetails.getConsultationDate(),
+                Prescription prescription = new Prescription(
+                        prescriptionDetails.getConsultationDate(),
                         prescriptionDetails.getObservation(),
                         prescriptionDetails.getMedicine(),
                         prescriptionDetails.getRemark(),
                         prescriptionDetails.getFollowUpDate(),
                         prescribingDoctor,
-                        prescribedPatient);
+                        prescribedPatient
+                );
 
                 prescriptionRepository.save(prescription);
                 return prescriptionDetails;
