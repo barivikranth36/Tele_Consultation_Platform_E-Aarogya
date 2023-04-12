@@ -19,9 +19,7 @@ public class Prescription {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int prescriptionId;
 
-    // Working with date as a string, Later if required we can change it to some other Object
-
-//    @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
+    //    @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
     @Column(name = "consultation_date", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date consultationDate;

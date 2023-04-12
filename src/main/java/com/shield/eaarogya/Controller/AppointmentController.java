@@ -1,7 +1,6 @@
 package com.shield.eaarogya.Controller;
 
 import com.shield.eaarogya.DTO.AppointmentDetails;
-import com.shield.eaarogya.Entity.Appointment;
 import com.shield.eaarogya.Service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,11 +19,6 @@ public class AppointmentController {
     public long requestAppointment(@RequestBody AppointmentDetails appointmentDetails) {
 
         return appointmentService.requestAppointment(appointmentDetails);
-
-//        System.out.println("Patient Name = " + appointmentDetails.getPatientId());
-//        System.out.println("Department Name = " + appointmentDetails.getDepartmentName());
-//        System.out.println("Timestamp = " + appointmentDetails.getAppointmentTimestamp().toString());
-//        return true;
     }
 
     // ------------------------------------- Get list of all Appointments -------------------------------

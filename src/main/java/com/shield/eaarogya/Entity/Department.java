@@ -1,7 +1,11 @@
 package com.shield.eaarogya.Entity;
 
-import javax.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+import javax.persistence.*;
+@Getter
+@Setter
 @Entity
 @Table(name = "department")
 public class Department {
@@ -29,40 +33,6 @@ public class Department {
         this.departmentName = departmentName;
         this.description = description;
     }
-
-    // -------------------------------- Getters and Setters -------------------------------------
-
-    public int getDepartmentId() {
-        return departmentId;
-    }
-
-    public void setDepartmentId(int departmentId) {
-        this.departmentId = departmentId;
-    }
-
-    public String getDepartmentName() {
-        return departmentName;
-    }
-
-    public void setDepartmentName(String dept_name) {
-        this.departmentName = dept_name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-//    public List<Doctor> getDoctorList() {
-//        return doctorList;
-//    }
-//
-//    public void setDoctorList(List<Doctor> doctorList) {
-//        this.doctorList = doctorList;
-//    }
 
     // ---------------------------------- toString() ----------------------------------------
 

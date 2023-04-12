@@ -9,13 +9,14 @@ import java.util.List;
 
 @Repository
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
-    public Appointment findByAppointmentId(long appointmentId);
+    Appointment findByAppointmentId(long appointmentId);
 
-    public List<Appointment> findAllByDepartment_DepartmentName(String departmentName);
+    List<Appointment> findAllByDepartment_DepartmentName(String departmentName);
 
     // To get Appointments whose timestamp is less than the particular appointment timestamp and are of same department
-    public List<Appointment> findAllByDepartment_DepartmentNameAndAppointmentTimestampLessThan(
+    List<Appointment> findAllByDepartment_DepartmentNameAndAppointmentTimestampLessThan(
             String departmentName, Date appointmentTimestamp);
 
-    public Appointment findByPatient_PatientId(long patientId);
+    Appointment findByPatient_PatientId(long patientId);
+
 }

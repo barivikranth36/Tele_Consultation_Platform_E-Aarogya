@@ -1,8 +1,14 @@
 package com.shield.eaarogya.Entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
+@Getter
+@Setter
 @Entity
 public class Doctor {
 
@@ -35,6 +41,10 @@ public class Doctor {
     @Column(name = "gender", nullable = false)
     private String gender;
 
+    @ElementCollection
+    @CollectionTable(name = "languages_of_doctor", joinColumns = @JoinColumn(name = "doctorId"))
+    private Set<String> doctorLanguages;
+
     @Column(name = "address", nullable = false)
     private String addr;
 
@@ -60,7 +70,7 @@ public class Doctor {
     public Doctor() {
     }
 
-    public Doctor(String title, String firstName, String lastName, String phoneNumber, String email, String registration_number, Date dob, String gender, String addr, String city, long pincode, Department department) {
+    public Doctor(String title, String firstName, String lastName, String phoneNumber, String email, String registration_number, Date dob, String gender, Set<String> doctorLanguages, String addr, String city, long pincode, Department department) {
         this.title = title;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -69,115 +79,10 @@ public class Doctor {
         this.registration_number = registration_number;
         this.dob = dob;
         this.gender = gender;
+        this.doctorLanguages = doctorLanguages;
         this.addr = addr;
         this.city = city;
         this.pincode = pincode;
-        this.department = department;
-    }
-
-    // ---------------------------------- Getters and Setters -------------------------------------
-
-    public long getDoctorId() {
-        return doctorId;
-    }
-
-    public void setDoctorId(long dr_id) {
-        this.doctorId = dr_id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String fName) {
-        this.firstName = fName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getRegistration_number() {
-        return registration_number;
-    }
-
-    public void setRegistration_number(String registration_number) {
-        this.registration_number = registration_number;
-    }
-
-    public Date getDob() {
-        return dob;
-    }
-
-    public void setDob(Date dob) {
-        this.dob = dob;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public String getAddr() {
-        return addr;
-    }
-
-    public void setAddr(String addr) {
-        this.addr = addr;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public long getPincode() {
-        return pincode;
-    }
-
-    public void setPincode(long pincode) {
-        this.pincode = pincode;
-    }
-
-    public Department getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(Department department) {
         this.department = department;
     }
 

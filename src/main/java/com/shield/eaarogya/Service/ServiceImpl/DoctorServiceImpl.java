@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class DoctorServiceImpl implements DoctorService {
@@ -27,12 +29,18 @@ public class DoctorServiceImpl implements DoctorService {
 
         try {
             Department department = departmentService.getDepartmentByName(doctorDetails.getDepartmentName());
+            Set<String> languagesSpeak = doctorDetails.getDoctorLanguages();
+            Set<String> languages = new HashSet<>();
+
+            for(String s: languagesSpeak)
+                languages.add(s.toLowerCase());
 
             Doctor doctor = new Doctor(doctorDetails.getTitle(),
                     doctorDetails.getFirstName(), doctorDetails.getLastName(),
                     doctorDetails.getPhoneNumber(),
                     doctorDetails.getEmail(), doctorDetails.getRegistration_number(),
                     doctorDetails.getDob(), doctorDetails.getGender(),
+                    languages,
                     doctorDetails.getAddr(), doctorDetails.getCity(),
                     doctorDetails.getPincode(), department);
 
@@ -51,7 +59,7 @@ public class DoctorServiceImpl implements DoctorService {
         try {
             List<Doctor> doctorList = doctorRepository.findAll();
 
-            List<DoctorDetails> doctorDetailsList = new ArrayList<DoctorDetails>();
+            List<DoctorDetails> doctorDetailsList = new ArrayList<>();
 
             for (Doctor doctor : doctorList) {
                 doctorDetailsList.add(new DoctorDetails(doctor.getDoctorId(),
@@ -60,7 +68,8 @@ public class DoctorServiceImpl implements DoctorService {
                         doctor.getPhoneNumber(),
                         doctor.getRegistration_number(), doctor.getDob(),
                         doctor.getGender(), doctor.getAddr(), doctor.getCity(),
-                        doctor.getPincode(), doctor.getDepartment().getDepartmentName()));
+                        doctor.getPincode(), doctor.getDepartment().getDepartmentName(),
+                        doctor.getDoctorLanguages()));
             }
 
             return doctorDetailsList;
@@ -84,7 +93,8 @@ public class DoctorServiceImpl implements DoctorService {
                     doctor.getDob(), doctor.getGender(),
                     doctor.getAddr(), doctor.getCity(),
                     doctor.getPincode(),
-                    doctor.getDepartment().getDepartmentName());
+                    doctor.getDepartment().getDepartmentName(),
+                    doctor.getDoctorLanguages());
         } catch (Exception e) {
             System.out.println("Error Occurred while getting doctor details from email");
             e.printStackTrace();
@@ -104,7 +114,8 @@ public class DoctorServiceImpl implements DoctorService {
                        doctor.getRegistration_number(), doctor.getDob(),
                        doctor.getGender(), doctor.getAddr(),
                        doctor.getCity(), doctor.getPincode(),
-                       doctor.getDepartment().getDepartmentName()
+                       doctor.getDepartment().getDepartmentName(),
+                       doctor.getDoctorLanguages()
                );
             }
             return null;
