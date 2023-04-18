@@ -18,18 +18,6 @@ public class LoginController {
     @Autowired
     private DoctorService doctorService;
 
-    // ---------------------------------------- Phone Number Verification ---------------------------------------
-//    @GetMapping("/verifyPhoneNumber/{phoneNumber}")
-//    public String verifyPhoneNumber(@PathVariable String phoneNumber) {
-//
-//        if(patientService.getPatientByPhoneNumber(Long.parseLong(phoneNumber))) {
-//            return "Patient";
-//        } else if (doctorService.getDoctorByPhoneNumber(Long.parseLong(phoneNumber))) {
-//            return "Doctor";
-//        } else
-//            return "None";
-//    }
-
     // -------------------------------- Verify Doctor Phone Number ---------------------------------------
     @GetMapping("/verifyDoctorPhoneNumber/{phoneNumber}")
     public boolean verifyDoctorPhoneNumber(@PathVariable String phoneNumber) {

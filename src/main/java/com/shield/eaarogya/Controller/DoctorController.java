@@ -45,7 +45,7 @@ public class DoctorController {
         return doctorService.findByEmail(email);
     }
 
-    // ------------------------------ Get Doctor from Phone Number --------------------------------------
+    // ------------------------------------------ Get Doctor from Phone Number --------------------------------------
     @GetMapping("/getDoctorByPhoneNumber/{phoneNumber}")
     public DoctorDetails getDoctorByPhoneNumber(@PathVariable String phoneNumber) {
         return doctorService.getDoctorByPhoneNumber(phoneNumber);

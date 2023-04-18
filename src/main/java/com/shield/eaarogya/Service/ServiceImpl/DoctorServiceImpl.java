@@ -3,12 +3,15 @@ package com.shield.eaarogya.Service.ServiceImpl;
 import com.shield.eaarogya.DTO.DoctorDetails;
 import com.shield.eaarogya.Entity.Department;
 import com.shield.eaarogya.Entity.Doctor;
+import com.shield.eaarogya.Entity.OnlineDoctor;
 import com.shield.eaarogya.Repository.DoctorRepository;
+import com.shield.eaarogya.Repository.OnlineDoctorRepository;
 import com.shield.eaarogya.Service.DepartmentService;
 import com.shield.eaarogya.Service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -23,7 +26,11 @@ public class DoctorServiceImpl implements DoctorService {
     @Autowired
     private DoctorRepository doctorRepository;
 
+    @Autowired
+    private OnlineDoctorRepository onlineDoctorRepository;
+
     // --------------------------------- Add Doctor to Database -------------------------------------
+    @Transactional
     @Override
     public DoctorDetails addDoctor(DoctorDetails doctorDetails) {
 
@@ -45,6 +52,11 @@ public class DoctorServiceImpl implements DoctorService {
                     doctorDetails.getPincode(), department);
 
             doctorRepository.save(doctor);
+            // Saving the online doctors to the database
+            onlineDoctorRepository.save(new OnlineDoctor(
+                    false,
+                    doctor
+            ));
             return doctorDetails;
         } catch (Exception e) {
             System.out.println("Error Occurred while adding doctor to the database");

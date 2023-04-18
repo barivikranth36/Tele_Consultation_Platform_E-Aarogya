@@ -6,11 +6,11 @@ import java.util.List;
 
 public interface DoctorService {
 
-    public DoctorDetails addDoctor(DoctorDetails doctorDetails);
+    DoctorDetails addDoctor(DoctorDetails doctorDetails);
 
-    public List<DoctorDetails> getAllDoctors();
+    List<DoctorDetails> getAllDoctors();
 
-    public DoctorDetails findByEmail(String email);
+    DoctorDetails findByEmail(String email);
 
-    public DoctorDetails getDoctorByPhoneNumber(String phoneNumber);
+    DoctorDetails getDoctorByPhoneNumber(String phoneNumber);
 }
