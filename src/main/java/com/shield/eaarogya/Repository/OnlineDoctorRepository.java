@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface OnlineDoctorRepository extends JpaRepository<OnlineDoctor, Long> {
+
+    OnlineDoctor findByDoctor_DoctorId(long doctorId);
 }

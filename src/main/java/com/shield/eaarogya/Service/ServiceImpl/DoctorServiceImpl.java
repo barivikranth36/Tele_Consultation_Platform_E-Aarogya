@@ -92,6 +92,7 @@ public class DoctorServiceImpl implements DoctorService {
         }
     }
 
+    // --------------------------------- Fetch doctor by Email --------------------------------------------
     @Override
     public DoctorDetails findByEmail(String email) {
         try {
@@ -114,12 +115,18 @@ public class DoctorServiceImpl implements DoctorService {
         }
     }
 
+    // Fetch doctor from his phone number
+
     @Override
     public DoctorDetails getDoctorByPhoneNumber(String phoneNumber) {
         try {
             Doctor doctor = doctorRepository.findByPhoneNumber(phoneNumber);
             if (doctor != null) {
-               return new DoctorDetails(
+                OnlineDoctor onlineDoctor = onlineDoctorRepository.findByDoctor_DoctorId(doctor.getDoctorId());
+                onlineDoctor.setOnline(true);
+                // Setting the online doctor as true;
+                onlineDoctorRepository.save(onlineDoctor);
+                return new DoctorDetails(
                        doctor.getDoctorId(), doctor.getTitle(),
                        doctor.getFirstName(), doctor.getLastName(),
                        doctor.getEmail(), doctor.getPhoneNumber(),
@@ -128,7 +135,7 @@ public class DoctorServiceImpl implements DoctorService {
                        doctor.getCity(), doctor.getPincode(),
                        doctor.getDepartment().getDepartmentName(),
                        doctor.getDoctorLanguages()
-               );
+                );
             }
             return null;
         } catch (Exception e) {
@@ -137,4 +144,21 @@ public class DoctorServiceImpl implements DoctorService {
             return null;
         }
     }
+
+    // ------------------------------ Logout doctor and set doctor online to false -----------------------------------
+
+    @Override
+    public boolean doctorLogout(long doctorId) {
+        try {
+            OnlineDoctor onlineDoctor = onlineDoctorRepository.findByDoctor_DoctorId(doctorId);
+            onlineDoctor.setOnline(false);
+
+            onlineDoctorRepository.save(onlineDoctor);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
+

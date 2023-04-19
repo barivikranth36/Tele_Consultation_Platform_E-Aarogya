@@ -48,6 +48,8 @@ public class DoctorController {
     // ------------------------------------------ Get Doctor from Phone Number --------------------------------------
     @GetMapping("/getDoctorByPhoneNumber/{phoneNumber}")
     public DoctorDetails getDoctorByPhoneNumber(@PathVariable String phoneNumber) {
+
+        // When otp is verified the doctor details are fetched and sent to the front-end using this API, also this will set the isOnline doctor to TRUE.
         return doctorService.getDoctorByPhoneNumber(phoneNumber);
     }
 
@@ -63,5 +65,11 @@ public class DoctorController {
         return appointmentService.getAppointmentByPreferredLanguageAndDepartmentName(
                 Long.parseLong(doctorId)
         );
+    }
+
+    // ------------------------ Logout the doctor and update the isOnline doctor to FALSE --------------------------
+    @PutMapping("/Doctorlogout/{doctorId}")
+    public boolean doctorLogout(@PathVariable Long doctorId) {
+        return doctorService.doctorLogout(doctorId);
     }
 }

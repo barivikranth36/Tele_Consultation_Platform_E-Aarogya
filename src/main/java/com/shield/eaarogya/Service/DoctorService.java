@@ -13,4 +13,6 @@ public interface DoctorService {
     DoctorDetails findByEmail(String email);
 
     DoctorDetails getDoctorByPhoneNumber(String phoneNumber);
+
+    boolean doctorLogout(long doctorId);
 }
