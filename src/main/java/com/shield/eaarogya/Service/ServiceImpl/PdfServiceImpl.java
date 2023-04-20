@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.awt.*;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.util.Set;
 
 @Service
 public class PdfServiceImpl implements PdfService {
@@ -137,8 +138,12 @@ public class PdfServiceImpl implements PdfService {
             headerCell.setPhrase(new Phrase("Medicine", font));
             table.addCell(headerCell);
 
-            paraCell.setPhrase(new Phrase(prescription.getMedicine(), paraFont));
-            table.addCell(paraCell);
+            // ----------------------------- Trying to add multiple medicines in a row -------------------------------
+            Set<String> medicines = prescription.getMedicine();
+            for(String medicine: medicines) {
+                paraCell.setPhrase(new Phrase(medicine, paraFont));
+                table.addCell(paraCell);
+            }
 
             headerCell.setPhrase(new Phrase("Remark", font));
             table.addCell(headerCell);

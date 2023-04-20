@@ -35,16 +35,16 @@ public class Appointment {
     @JoinColumn(name = "department", referencedColumnName = "departmentId")
     private Department department;
 
-    @Column(name = "approval")
-    private boolean approval;
+    @Column(name = "preferred_language", nullable = false)
+    private String preferredLanguage;
 
     //----------------------------------------- Constructor ------------------------------------------------
 
-    public Appointment(Patient patient, Department department, Date appointmentTimestamp) {
+    public Appointment(Patient patient, Department department, Date appointmentTimestamp, String preferredLanguage) {
         this.patient = patient;
         this.department = department;
         this.appointmentTimestamp = appointmentTimestamp;
-        this.approval = false;
+        this.preferredLanguage = preferredLanguage;
     }
 
     // ------------------------------------------- ToString() ----------------------------------------------
@@ -56,7 +56,7 @@ public class Appointment {
                 ", patient=" + patient +
                 ", appointmentTimestamp=" + appointmentTimestamp +
                 ", department=" + department +
-                ", approval=" + approval +
+                ", preferred Language=" + preferredLanguage +
                 '}';
     }
 }

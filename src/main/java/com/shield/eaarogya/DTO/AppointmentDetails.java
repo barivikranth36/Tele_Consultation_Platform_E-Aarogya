@@ -21,13 +21,28 @@ public class AppointmentDetails {
     private Date appointmentTimestamp;
     private long patientId;
     private String departmentName;
-//    private boolean approval;
+
+    private String preferredLanguage;
 
     // ---------------------------------------- Constructor --------------------------------------------
 
-    public AppointmentDetails(Date appointmentTimestamp, long patientId, String departmentName) {
+    public AppointmentDetails(Date appointmentTimestamp, long patientId, String departmentName, String preferredLanguage) {
         this.appointmentTimestamp = appointmentTimestamp;
         this.patientId = patientId;
         this.departmentName = departmentName;
+        this.preferredLanguage = preferredLanguage;
+    }
+
+    // ------------------------------- toString ----------------------------------------------
+
+    @Override
+    public String toString() {
+        return "AppointmentDetails{" +
+                "appointmentId=" + appointmentId +
+                ", appointmentTimestamp=" + appointmentTimestamp +
+                ", patientId=" + patientId +
+                ", departmentName='" + departmentName + '\'' +
+                ", preferredLanguage='" + preferredLanguage + '\'' +
+                '}';
     }
 }

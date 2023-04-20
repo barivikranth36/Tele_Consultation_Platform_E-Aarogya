@@ -1,9 +1,17 @@
 package com.shield.eaarogya.Entity;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
+@Getter
+@Setter
 @Entity
+@NoArgsConstructor
 @Table(name = "prescription")
 public class Prescription {
 
@@ -11,9 +19,7 @@ public class Prescription {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int prescriptionId;
 
-    // Working with date as a string, Later if required we can change it to some other Object
-
-//    @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
+    //    @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
     @Column(name = "consultation_date", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date consultationDate;
@@ -21,8 +27,9 @@ public class Prescription {
     @Column(name = "observation", nullable = false)
     private String observation;
 
-    @Column(name = "medicine")
-    private String medicine;
+    @ElementCollection
+    @CollectionTable(name = "medicines", joinColumns = @JoinColumn(name = "prescriptionId"))
+    private Set<String> medicine;
 
     @Column(name = "remark", nullable = false)
     private String remark;
@@ -44,82 +51,13 @@ public class Prescription {
 
     // ------------------------------------- Constructors -------------------------------------
 
-    public Prescription() {
-    }
-
-    public Prescription(Date consultationDate, String observation, String medicine, String remark, Date followUpDate, Doctor doctor, Patient patient) {
+    public Prescription(Date consultationDate, String observation, Set<String> medicine, String remark, Date followUpDate, Doctor doctor, Patient patient) {
         this.consultationDate = consultationDate;
         this.observation = observation;
         this.medicine = medicine;
         this.remark = remark;
         this.followUpDate = followUpDate;
         this.doctor = doctor;
-        this.patient = patient;
-    }
-
-    // ----------------------------------- Getters and Setters --------------------------------------
-
-    public int getPrescriptionId() {
-        return prescriptionId;
-    }
-
-    public void setPrescriptionId(int pres_id) {
-        this.prescriptionId = pres_id;
-    }
-
-    public Date getConsultationDate() {
-        return consultationDate;
-    }
-
-    public void setConsultationDate(Date date) {
-        this.consultationDate = date;
-    }
-
-    public String getObservation() {
-        return observation;
-    }
-
-    public void setObservation(String prescription) {
-        this.observation = prescription;
-    }
-
-    public String getMedicine() {
-        return medicine;
-    }
-
-    public void setMedicine(String medicine) {
-        this.medicine = medicine;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public Date getFollowUpDate() {
-        return followUpDate;
-    }
-
-    public void setFollowUpDate(Date followUpDate) {
-        this.followUpDate = followUpDate;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
-
-    public Doctor getDoctor() {
-        return doctor;
-    }
-
-    public void setDoctor(Doctor doctor) {
-        this.doctor = doctor;
-    }
-
-    public Patient getPatient() {
-        return patient;
-    }
-
-    public void setPatient(Patient patient) {
         this.patient = patient;
     }
 

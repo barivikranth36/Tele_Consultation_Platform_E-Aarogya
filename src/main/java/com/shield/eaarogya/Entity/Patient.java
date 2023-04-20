@@ -1,8 +1,12 @@
 package com.shield.eaarogya.Entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.Date;
-
+@Getter
+@Setter
 @Entity
 @Table(name="patient")
 public class Patient {
@@ -63,104 +67,6 @@ public class Patient {
         this.dob = dob;
         this.addr = addr;
         this.city = city;
-        this.pincode = pincode;
-    }
-
-    // ----------------------- Generating Getters and Setters --------------------------
-
-    public long getPatientId() {
-        return patientId;
-    }
-
-    public void setPatientId(long patientId) {
-        this.patientId = patientId;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-//    public List<Prescription> getPrescriptionList() {
-//        return prescriptionList;
-//    }
-//
-//    public void setPrescriptionList(List<Prescription> prescriptionList) {
-//        this.prescriptionList = prescriptionList;
-//    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String fName) {
-        this.firstName = fName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lName) {
-        this.lastName = lName;
-    }
-
-    public String getPhoneNo() {
-        return phoneNo;
-    }
-
-    public void setPhoneNo(String phoneNo) {
-        this.phoneNo = phoneNo;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Date getDob() {
-        return dob;
-    }
-
-    public void setDob(Date dob) {
-        this.dob = dob;
-    }
-
-    public String getAddr() {
-        return addr;
-    }
-
-    public void setAddr(String addr) {
-        this.addr = addr;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public long getPincode() {
-        return pincode;
-    }
-
-    public void setPincode(long pincode) {
         this.pincode = pincode;
     }
 

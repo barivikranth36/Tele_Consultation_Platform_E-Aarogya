@@ -3,8 +3,10 @@ package com.shield.eaarogya.Service.ServiceImpl;
 import com.shield.eaarogya.DTO.AppointmentDetails;
 import com.shield.eaarogya.Entity.Appointment;
 import com.shield.eaarogya.Entity.Department;
+import com.shield.eaarogya.Entity.Doctor;
 import com.shield.eaarogya.Entity.Patient;
 import com.shield.eaarogya.Repository.AppointmentRepository;
+import com.shield.eaarogya.Repository.DoctorRepository;
 import com.shield.eaarogya.Service.AppointmentService;
 import com.shield.eaarogya.Service.DepartmentService;
 import com.shield.eaarogya.Service.PatientService;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class AppointmentServiceImpl implements AppointmentService {
@@ -27,15 +30,21 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Autowired
     private AppointmentRepository appointmentRepository;
 
+    @Autowired
+    private DoctorRepository doctorRepository;
+
     @Override
     public long requestAppointment(AppointmentDetails appointmentDetails) {
         try {
             Department department = departmentService.getDepartmentByName(appointmentDetails.getDepartmentName());
             Patient patient = patientService.getPatientByPatientId(appointmentDetails.getPatientId());
 
-            Appointment appointment = new Appointment(patient, department,
-                    appointmentDetails.getAppointmentTimestamp());
-
+            Appointment appointment = new Appointment(
+                    patient,
+                    department,
+                    appointmentDetails.getAppointmentTimestamp(),
+                    appointmentDetails.getPreferredLanguage().toLowerCase()
+            );
             Appointment savedAppointment = appointmentRepository.save(appointment);
 
             return savedAppointment.getAppointmentId();
@@ -61,7 +70,8 @@ public class AppointmentServiceImpl implements AppointmentService {
                         appointment.getAppointmentId(),
                         appointment.getAppointmentTimestamp(),
                         appointment.getPatient().getPatientId(),
-                        appointment.getDepartment().getDepartmentName()
+                        appointment.getDepartment().getDepartmentName(),
+                        appointment.getPreferredLanguage()
                 ));
             }
 
@@ -128,7 +138,7 @@ public class AppointmentServiceImpl implements AppointmentService {
             for (Appointment appointment : appointmentList) {
                 appointmentDetailsList.add(new AppointmentDetails(appointment.getAppointmentId(),
                         appointment.getAppointmentTimestamp(), appointment.getPatient().getPatientId(),
-                        appointment.getDepartment().getDepartmentName()));
+                        appointment.getDepartment().getDepartmentName(), appointment.getPreferredLanguage()));
             }
 
             return appointmentDetailsList;
@@ -143,14 +153,42 @@ public class AppointmentServiceImpl implements AppointmentService {
     public boolean checkAppointment(long patientId) {
         try {
             Appointment appointment = appointmentRepository.findByPatient_PatientId(patientId);
-            if(appointment != null)
-                return true;
-            else return false;
+            return appointment != null;
         } catch (Exception e) {
             System.out.println("Error while checking for appointments");
             e.printStackTrace();
             return false;
         }
 
+    }
+
+    @Override
+    public List<AppointmentDetails> getAppointmentByPreferredLanguageAndDepartmentName(long doctorId) {
+        try {
+            Doctor doctor;
+            if(doctorRepository.findById(doctorId).isPresent()) {
+                doctor = doctorRepository.findById(doctorId).get();
+                Set<String> doctorLanguages = doctor.getDoctorLanguages();
+                List<Appointment> appointmentList = appointmentRepository.findAllByDepartment_DepartmentName(doctor.getDepartment().getDepartmentName());
+
+                List<AppointmentDetails> appointmentDetailsList = new ArrayList<>();
+
+                for (Appointment appointment : appointmentList) {
+                    String appointmentLanguage = appointment.getPreferredLanguage().toLowerCase();
+                    // Check if the doctor speaks same language or not.
+                    if(doctorLanguages.contains(appointmentLanguage))
+                        appointmentDetailsList.add(new AppointmentDetails(appointment.getAppointmentId(),
+                                appointment.getAppointmentTimestamp(), appointment.getPatient().getPatientId(),
+                                appointment.getDepartment().getDepartmentName(), appointment.getPreferredLanguage()));
+                }
+
+                return appointmentDetailsList;
+            }
+            else return null;
+        } catch (Exception e) {
+            System.out.println("Error Occured fetching appointments based on department name.");
+            e.printStackTrace();
+            return null;
+        }
     }
 }

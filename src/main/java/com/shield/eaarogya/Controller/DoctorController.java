@@ -1,9 +1,9 @@
 package com.shield.eaarogya.Controller;
 
+import com.shield.eaarogya.DTO.AppointmentDetails;
 import com.shield.eaarogya.DTO.DailyLogDetails;
 import com.shield.eaarogya.DTO.DoctorDetails;
-import com.shield.eaarogya.Entity.Patient;
-import com.shield.eaarogya.Repository.PatientRepository;
+import com.shield.eaarogya.Service.AppointmentService;
 import com.shield.eaarogya.Service.DoctorService;
 import com.shield.eaarogya.Service.PrescriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +21,9 @@ public class DoctorController {
 
     @Autowired
     private PrescriptionService prescriptionService;
+
+    @Autowired
+    private AppointmentService appointmentService;
 
     // ----------------------------------------- Register a Doctor -----------------------------------------
     @PostMapping("/registerDoctor")
@@ -42,9 +45,11 @@ public class DoctorController {
         return doctorService.findByEmail(email);
     }
 
-    // ------------------------------ Get Doctor from Phone Number --------------------------------------
+    // ------------------------------------------ Get Doctor from Phone Number --------------------------------------
     @GetMapping("/getDoctorByPhoneNumber/{phoneNumber}")
     public DoctorDetails getDoctorByPhoneNumber(@PathVariable String phoneNumber) {
+
+        // When otp is verified the doctor details are fetched and sent to the front-end using this API, also this will set the isOnline doctor to TRUE.
         return doctorService.getDoctorByPhoneNumber(phoneNumber);
     }
 
@@ -52,5 +57,19 @@ public class DoctorController {
     @GetMapping("/doctorDailyLog/{doctorId}")
     public List<DailyLogDetails> doctorDailyLog(@PathVariable String doctorId) {
         return prescriptionService.doctorDailyLog(Long.parseLong(doctorId));
+    }
+
+    // -------------- Get list of all Appointments with department and language spoken by doctor ------------------
+    @GetMapping("/appointmentList/{doctorId}")
+    public List<AppointmentDetails> getAppointmentByPreferredLanguageAndDepartmentName(@PathVariable String doctorId) {
+        return appointmentService.getAppointmentByPreferredLanguageAndDepartmentName(
+                Long.parseLong(doctorId)
+        );
+    }
+
+    // ------------------------ Logout the doctor and update the isOnline doctor to FALSE --------------------------
+    @PutMapping("/Doctorlogout/{doctorId}")
+    public boolean doctorLogout(@PathVariable Long doctorId) {
+        return doctorService.doctorLogout(doctorId);
     }
 }

@@ -1,11 +1,14 @@
 package com.shield.eaarogya.DTO;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.util.Date;
+import java.util.Set;
 
 /*
     This Class is to merge the department and doctor data and transfer it through the API
@@ -13,6 +16,8 @@ import java.util.Date;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class DoctorDetails {
 
     private long doctorId;
@@ -42,31 +47,8 @@ public class DoctorDetails {
 
     private String departmentName;
 
-//    private String description;
+    private Set<String> doctorLanguages;
 
-    // ---------------------------------- Constructors ----------------------------------
-
-
-    public DoctorDetails() {
-    }
-
-    public DoctorDetails(long doctorId, String title, String firstName, String lastName, String email, String phoneNumber, String registration_number, Date dob, String gender, String addr, String city, long pincode, String departmentName) {
-        this.doctorId = doctorId;
-        this.title = title;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.registration_number = registration_number;
-        this.dob = dob;
-        this.gender = gender;
-        this.addr = addr;
-        this.city = city;
-        this.pincode = pincode;
-        this.departmentName = departmentName;
-    }
-
-    // ----------------------------------- Getters and Setters --------------------------------------
 
     // ------------------------------- toString() method -------------------------------
 
