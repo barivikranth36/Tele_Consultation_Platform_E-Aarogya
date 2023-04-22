@@ -6,12 +6,14 @@ import com.shield.eaarogya.Entity.Patient;
 import com.shield.eaarogya.Service.PatientService;
 import com.shield.eaarogya.Service.PrescriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
+@PreAuthorize("hasRole('ROLE_PATIENT')")
 @RequestMapping("/patient")
 public class PatientController {
 

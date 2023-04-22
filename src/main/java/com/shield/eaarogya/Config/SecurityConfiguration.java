@@ -3,11 +3,12 @@ package com.shield.eaarogya.Config;
 
 import com.shield.eaarogya.Filter.JwtFilter;
 import com.shield.eaarogya.Service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -23,13 +24,20 @@ import java.util.Collections;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    @Autowired
-    private JwtFilter jwtFilter;
+    private final JwtFilter jwtFilter;
+
+    private final JwtEntryPoint jwtEntryPoint;
+
+    public SecurityConfiguration(UserService userService, JwtFilter jwtFilter, JwtEntryPoint jwtEntryPoint) {
+        this.userService = userService;
+        this.jwtFilter = jwtFilter;
+        this.jwtEntryPoint = jwtEntryPoint;
+    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -45,17 +53,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        http.csrf()
-//                .disable()
-//                .authorizeRequests()
-//                .antMatchers("/authenticate")
-//                .permitAll()
-//                .anyRequest()
-//                .authenticated()
-//                .and()
-//                .sessionManagement()
-//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+
         http.csrf()
                 .disable()
                 .cors()
@@ -64,12 +62,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .authorizeRequests()
                 .antMatchers("/authenticate/**")
                 .permitAll()
-                .antMatchers("/patient/**")
-                .hasRole("PATIENT")
-                .antMatchers("/doctor/**")
-                .hasRole("DOCTOR")
+                .antMatchers(HttpHeaders.ALLOW).permitAll()
                 .anyRequest()
                 .authenticated()
+                .and()
+                .exceptionHandling().authenticationEntryPoint(jwtEntryPoint)
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
