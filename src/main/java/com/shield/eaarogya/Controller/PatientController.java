@@ -1,7 +1,6 @@
 package com.shield.eaarogya.Controller;
 
 import com.shield.eaarogya.DTO.FollowUpDetails;
-import com.shield.eaarogya.DTO.PatientDetails;
 import com.shield.eaarogya.Entity.Patient;
 import com.shield.eaarogya.Service.PatientService;
 import com.shield.eaarogya.Service.PrescriptionService;
@@ -31,7 +30,7 @@ public class PatientController {
 
     // -------------------------------- Adding Patient to database -------------------------------
     @PostMapping("/addPatient")
-    public Patient addPatient(Patient patient) {
+    public Patient addPatient(@RequestBody Patient patient) {
         return this.patientService.addPatient(patient);
     }
 
