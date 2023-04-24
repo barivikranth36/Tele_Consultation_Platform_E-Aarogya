@@ -69,6 +69,13 @@ public class DoctorController {
         );
     }
 
+    // -------------------------------------- Update Doctor Profile ---------------------------------------
+    // (You have to send every details to the API)
+    @PutMapping("/updateDoctor/{doctorId}")
+    public DoctorDetails updateDoctor(@RequestBody DoctorDetails doctorDetails, @PathVariable String doctorId) {
+        return doctorService.updateDoctor(doctorDetails, Long.parseLong(doctorId));
+    }
+
     // ------------------------ Logout the doctor and update the isOnline doctor to FALSE --------------------------
     @PutMapping("/Doctorlogout/{doctorId}")
     public boolean doctorLogout(@PathVariable Long doctorId) {
