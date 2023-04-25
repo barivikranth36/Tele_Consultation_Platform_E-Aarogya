@@ -51,6 +51,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
         return super.authenticationManagerBean();
     }
 
+    // After merged with front end, remove .antmachers("/**").permitall() to make security work fine
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
@@ -60,6 +62,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .configurationSource(corsConfigurationSource())
                 .and()
                 .authorizeRequests()
+                .antMatchers("/**")
+                .permitAll()
                 .antMatchers("/authenticate/**")
                 .permitAll()
                 .antMatchers("/login/**")
