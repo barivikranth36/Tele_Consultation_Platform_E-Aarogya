@@ -14,7 +14,6 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
-@PreAuthorize("hasRole('ROLE_DOCTOR')")
 @RequestMapping("/doctor")
 public class DoctorController {
 
@@ -34,12 +33,14 @@ public class DoctorController {
     }
 
     // ------------------------------------- Get List of all Doctors ------------------------------------------
+//    @PreAuthorize("hasRole('ROLE_DOCTOR')")
     @GetMapping("/getAllDoctors")
     public List<DoctorDetails> getAllDoctors() {
         return doctorService.getAllDoctors();
     }
 
     // ---------------------------------------- Get Doctor by EmailId -------------------------------
+//    @PreAuthorize("hasRole('ROLE_DOCTOR')")
     @GetMapping("/getdoctorByEmail/{email}")
     public DoctorDetails getDoctorByEmail(@PathVariable String email) {
 //        String email = loginCredentials.getEmail();
@@ -56,12 +57,14 @@ public class DoctorController {
     }
 
     // ---------------------------------- Fetch Doctor's Daily Log based on doctor id ---------------------------------
+//    @PreAuthorize("hasRole('ROLE_DOCTOR')")
     @GetMapping("/doctorDailyLog/{doctorId}")
     public List<DailyLogDetails> doctorDailyLog(@PathVariable String doctorId) {
         return prescriptionService.doctorDailyLog(Long.parseLong(doctorId));
     }
 
     // -------------- Get list of all Appointments with department and language spoken by doctor ------------------
+//    @PreAuthorize("hasRole('ROLE_DOCTOR')")
     @GetMapping("/appointmentList/{doctorId}")
     public List<AppointmentDetails> getAppointmentByPreferredLanguageAndDepartmentName(@PathVariable String doctorId) {
         return appointmentService.getAppointmentByPreferredLanguageAndDepartmentName(
@@ -77,6 +80,7 @@ public class DoctorController {
     }
 
     // ------------------------ Logout the doctor and update the isOnline doctor to FALSE --------------------------
+//    @PreAuthorize("hasRole('ROLE_DOCTOR')")
     @PutMapping("/Doctorlogout/{doctorId}")
     public boolean doctorLogout(@PathVariable Long doctorId) {
         return doctorService.doctorLogout(doctorId);
