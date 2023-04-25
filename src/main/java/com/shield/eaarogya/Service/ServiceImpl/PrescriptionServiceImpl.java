@@ -39,7 +39,10 @@ public class PrescriptionServiceImpl implements PrescriptionService {
     @Override
     public List<PrescriptionDetails> getPrescriptions(long patientId) {
         try {
-            List<Prescription> prescriptionList = prescriptionRepository.findPrescriptionsByPatient_PatientId(patientId);
+            List<Prescription> prescriptionList = prescriptionRepository
+                    .findPrescriptionsByPatient_PatientId(patientId);
+
+            Collections.reverse(prescriptionList);
 
             List<PrescriptionDetails> prescriptionDetailsList = new ArrayList<>();
 
