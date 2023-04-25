@@ -25,7 +25,7 @@ public class AppointmentController {
 
     // ------------------------------------- Get list of all Appointments -------------------------------
 
-    @PreAuthorize("hasRole('ROLE_DOCTOR')")
+//    @PreAuthorize("hasRole('ROLE_DOCTOR')")
     @GetMapping("/getAllAppointments")
     public List<AppointmentDetails> getAllAppointments() {
         return appointmentService.getAllAppointments();
@@ -55,7 +55,7 @@ public class AppointmentController {
     }
 
     // -------------------------- Get List of all Appointments for particular department ----------------------
-    @PreAuthorize("hasRole('ROLE_DOCTOR')")
+//    @PreAuthorize("hasRole('ROLE_DOCTOR')")
     @GetMapping("/getAllAppointments/{departmentName}")
     public List<AppointmentDetails> getAllAppointments(@PathVariable String departmentName) {
         return appointmentService.getAppointmentsByDepartment(departmentName);
