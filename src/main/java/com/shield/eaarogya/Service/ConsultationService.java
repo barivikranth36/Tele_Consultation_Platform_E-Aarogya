@@ -11,4 +11,12 @@ public interface ConsultationService {
     boolean addConsultation(Consultation consultation);
 
     List<DateWiseConsultations> totalDateWiseConsultations();
+
+    List<DateWiseConsultations> totalDateWiseConsultations(long doctorId);
+
+    long totalConsultationByPatient(long patientId);
+
+    long totalConsultationByDoctor(long doctorId);
+
+    long totalDailyConsultationByDoctor(long doctorId);
 }
