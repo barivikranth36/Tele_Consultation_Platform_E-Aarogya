@@ -18,6 +18,6 @@ public interface StorageService {
     // ------------------------------------ Delete file from S3 ------------------------------------------------------
     String deleteFile(String fileName);
 
-    // ------------------------------------ Delete all file from S3 ----------------------------------------------------
-    String deleteAllFiles();
+    // ------------------------------------ Delete all file from S3 for that particular patient ----------------------------------------------------
+    String deleteAllFiles(String patientId);
 }

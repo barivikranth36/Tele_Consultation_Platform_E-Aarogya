@@ -58,10 +58,10 @@ public class AwsStorageController {
                 .body(storageService.downloadFile(fileName));
     }
 
-    // ----------------------------------------- Flush the S3 ---------------------------------------------------------
+    // ----------------------------------------- Flush the S3 of that particular patient ---------------------------------------------------------
     // When doctor is done with the consultation and he ends the prescription, this API should be invoked
-    @DeleteMapping("/deleteAllFiles")
-    public String deleteAllFiles() {
-        return storageService.deleteAllFiles();
+    @DeleteMapping("/deleteAllFiles/{patientId}")
+    public String deleteAllFiles(@PathVariable String patientId) {
+        return storageService.deleteAllFiles(patientId);
     }
 }

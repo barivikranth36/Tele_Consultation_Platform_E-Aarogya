@@ -29,7 +29,7 @@ public class StorageServiceImpl implements StorageService {
     }
 
     public String uploadFile(MultipartFile multipartFile, long patientId) {
-        File file = null;
+        File file;
         try {
             file = convertMultiPartFileToFile(multipartFile);
 
@@ -76,15 +76,16 @@ public class StorageServiceImpl implements StorageService {
     // Delete all files from S3 using the list of all files function and delete a file function
 
     @Override
-    public String deleteAllFiles() {
+    public String deleteAllFiles(String patientId) {
 
         List<String> allFileNames = this.allFilesS3();
 
         for(String fileName: allFileNames) {
-            this.deleteFile(fileName);
+            if(fileName.startsWith(patientId))
+                this.deleteFile(fileName);
         }
 
-        return "Successfully flushed S3";
+        return "Successfully flushed S3 for patient " + patientId;
     }
 
     // ---------------------------- Function to convert Multipart file to File -----------------------------------------
