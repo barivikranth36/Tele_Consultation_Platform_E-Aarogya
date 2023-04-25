@@ -11,7 +11,6 @@ import com.shield.eaarogya.Repository.PrescriptionRepository;
 import com.shield.eaarogya.Entity.Doctor;
 import com.shield.eaarogya.Entity.Patient;
 import com.shield.eaarogya.Entity.Prescription;
-import com.shield.eaarogya.Service.ConsultationService;
 import com.shield.eaarogya.Service.PrescriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -228,7 +227,8 @@ public class PrescriptionServiceImpl implements PrescriptionService {
                             prescription.getDoctor().getDoctorId(),
                             prescription.getConsultationDate(),
                             prescription.getPatient().getPatientId(),
-                            prescription.getObservation()
+                            prescription.getObservation(),
+                            prescription.getRemark()
                     ));
                 }
             }

@@ -7,8 +7,6 @@ import com.shield.eaarogya.Service.ConsultationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
@@ -19,7 +17,7 @@ public class ConsultationServiceImpl implements ConsultationService {
 
     @Override
     public long getAllConsultationsCount() {
-        return (consultationRepository.findAll()).stream().count();
+        return (consultationRepository.findAll()).size();
     }
 
     // --------------------------------------------- Add Consultation ----------------------------------------------
@@ -56,19 +54,6 @@ public class ConsultationServiceImpl implements ConsultationService {
             );
         }
 
-//        // We'll compare the dates in string format, we'll convert consultation date and current date to the below pattern
-//        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//
-//        Map<String, Long> totalConsultations = new HashMap<>();
-//
-//        for(Consultation consultation: consultationList) {
-//            String date = dateFormat.format(consultation.getConsultationDate());
-//            if(totalConsultations.containsKey(date)) {
-//                totalConsultations.put(date, totalConsultations.get(date) + 1);
-//            }
-//            else totalConsultations.put(date, 1L);
-//
-//        }
         return dateWiseConsultationsList;
     }
 }

@@ -23,4 +23,6 @@ public class DailyLogDetails {
     private long patientId;
 
     private String observation;
+
+    private String remark;
 }
