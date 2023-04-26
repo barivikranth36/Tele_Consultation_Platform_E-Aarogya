@@ -88,6 +88,8 @@ public class StorageServiceImpl implements StorageService {
 
         List<String> allFileNames = this.allFilesS3(patientId);
 
+        System.out.println("List of all the files for patient " + patientId + " is " + allFileNames.toString());
+
         for(String fileName: allFileNames) {
             if(fileName.startsWith(patientId))
                 this.deleteFile(fileName);

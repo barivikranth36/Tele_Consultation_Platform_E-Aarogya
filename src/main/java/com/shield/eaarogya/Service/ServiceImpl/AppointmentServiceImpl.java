@@ -54,7 +54,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         }
         catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Error Occured while requesting for an appointment.");
+            System.out.println("Error Occurred while requesting for an appointment.");
             return -1;
         }
     }
