@@ -207,8 +207,8 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public boolean checkAppointment(long patientId) {
         try {
-            Appointment appointment = appointmentRepository.findByPatient_PatientId(patientId);
-            return appointment != null;
+            AppointmentStatus appointmentStatus = appointmentStatusRepository.findByPatient_PatientId(patientId);
+            return appointmentStatus != null;
         } catch (Exception e) {
             System.out.println("Error while checking for appointments");
             e.printStackTrace();
