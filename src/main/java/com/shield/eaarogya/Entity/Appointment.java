@@ -27,7 +27,7 @@ public class Appointment {
     @Column(name="isAccepted", nullable = false)
     private boolean isAccepted;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient", referencedColumnName = "patientId", unique = true)
     private Patient patient;
 
