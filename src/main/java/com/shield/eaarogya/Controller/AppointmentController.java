@@ -31,6 +31,18 @@ public class AppointmentController {
         return appointmentService.getAllAppointments();
     }
 
+    // ------------------------------------ Appointment Accepted -------------------------------------------------------
+    @PutMapping("/appointmentAccepted/{appointmentId}")
+    public boolean appointmentAccepted(@PathVariable String appointmentId) {
+        return appointmentService.appointmentAccepted(Long.parseLong(appointmentId));
+    }
+
+    // --------------------- Check if appointment accepted by the doctor or not -------------------------
+    @GetMapping("/isAppointmentAccepted/{appointmentId}")
+    public boolean isAppointmentAccepted(@PathVariable String appointmentId) {
+        return appointmentService.isAppointmentAccepted(Long.parseLong(appointmentId));
+    }
+
     // ------------------------------------ Delete a Particular Appointment ----------------------------------
     // This API is used by doctor
 //    @PreAuthorize("hasRole('ROLE_DOCTOR')")

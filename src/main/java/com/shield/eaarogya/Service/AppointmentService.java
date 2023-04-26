@@ -12,6 +12,12 @@ public interface AppointmentService {
     // ------------------------------------- Get list of all Appointments -------------------------------
     List<AppointmentDetails> getAllAppointments();
 
+    // --------------------------------------- Appointment accepted ----------------------------------------------------
+    boolean appointmentAccepted(long appointmentId);
+
+    // ----------------------------- Check if appointment is accepted or not -------------------------------------------
+    boolean isAppointmentAccepted(long appointmentId);
+
     // -------------------------------------- Delete a specific Appointment --------------------------------------
     boolean deleteAppointment(long appointmentId);
 
