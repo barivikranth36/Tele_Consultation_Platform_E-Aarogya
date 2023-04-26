@@ -61,8 +61,8 @@ public class AwsStorageController {
     // ----------------------------------------- Flush the S3 of that particular patient ---------------------------------------------------------
     // When doctor is done with the consultation and he ends the prescription, this API should be invoked
     // It is now kept in the add prescription API implementation
-//    @DeleteMapping("/deleteAllFiles/{patientId}")
-//    public String deleteAllFiles(@PathVariable String patientId) {
-//        return storageService.deleteAllFiles(patientId);
-//    }
+    @DeleteMapping("/deleteAllFiles/{patientId}")
+    public String deleteAllFiles(@PathVariable String patientId) {
+        return storageService.deleteAllFiles(patientId);
+    }
 }
