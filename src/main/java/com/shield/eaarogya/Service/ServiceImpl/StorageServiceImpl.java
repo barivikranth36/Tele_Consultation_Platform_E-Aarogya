@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,12 +46,19 @@ public class StorageServiceImpl implements StorageService {
     }
 
     @Override
-    public List<String> allFilesS3() {
+    public List<String> allFilesS3(String patientId) {
 
         ListObjectsV2Result listObjectsV2Result = s3Client.listObjectsV2(bucketName);
-        return listObjectsV2Result.getObjectSummaries().stream()
+        List<String> allFiles =  listObjectsV2Result.getObjectSummaries().stream()
                 .map(S3ObjectSummary::getKey)
                 .collect(Collectors.toList());
+        List<String> finalList = new ArrayList<>();
+        for(String s: allFiles) {
+            if(s.startsWith(patientId))
+                finalList.add(s);
+        }
+
+        return finalList;
     }
 
     @Override
@@ -78,7 +86,7 @@ public class StorageServiceImpl implements StorageService {
     @Override
     public String deleteAllFiles(String patientId) {
 
-        List<String> allFileNames = this.allFilesS3();
+        List<String> allFileNames = this.allFilesS3(patientId);
 
         for(String fileName: allFileNames) {
             if(fileName.startsWith(patientId))
