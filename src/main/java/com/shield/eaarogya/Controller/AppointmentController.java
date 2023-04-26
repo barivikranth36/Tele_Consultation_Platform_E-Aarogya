@@ -32,15 +32,21 @@ public class AppointmentController {
     }
 
     // ------------------------------------ Appointment Accepted -------------------------------------------------------
-    @PutMapping("/appointmentAccepted/{appointmentId}")
-    public boolean appointmentAccepted(@PathVariable String appointmentId) {
-        return appointmentService.appointmentAccepted(Long.parseLong(appointmentId));
+//    @PutMapping("/appointmentAccepted/{appointmentId}")
+//    public boolean appointmentAccepted(@PathVariable String appointmentId) {
+//        return appointmentService.appointmentAccepted(Long.parseLong(appointmentId));
+//    }
+
+    // -------------------------- Delete the Appointment status record using patientId ---------------------------
+    @DeleteMapping("/deleteAppointmentStatus/{patientId}")
+    public boolean deleteAppointmentStatus(@PathVariable String patientId) {
+        return appointmentService.deleteAppointmentStatus(Long.parseLong(patientId));
     }
 
-    // --------------------- Check if appointment accepted by the doctor or not -------------------------
-    @GetMapping("/isAppointmentAccepted/{appointmentId}")
-    public boolean isAppointmentAccepted(@PathVariable String appointmentId) {
-        return appointmentService.isAppointmentAccepted(Long.parseLong(appointmentId));
+    // --------------------- on patient side, check if appointment accepted by the doctor or not -------------------------
+    @GetMapping("/isAppointmentAccepted/{patientId}")
+    public boolean isAppointmentAccepted(@PathVariable String patientId) {
+        return appointmentService.isAppointmentAccepted(Long.parseLong(patientId));
     }
 
     // ------------------------------------ Delete a Particular Appointment ----------------------------------

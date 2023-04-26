@@ -1,11 +1,9 @@
 package com.shield.eaarogya.Service.ServiceImpl;
 
 import com.shield.eaarogya.DTO.AppointmentDetails;
-import com.shield.eaarogya.Entity.Appointment;
-import com.shield.eaarogya.Entity.Department;
-import com.shield.eaarogya.Entity.Doctor;
-import com.shield.eaarogya.Entity.Patient;
+import com.shield.eaarogya.Entity.*;
 import com.shield.eaarogya.Repository.AppointmentRepository;
+import com.shield.eaarogya.Repository.AppointmentStatusRepository;
 import com.shield.eaarogya.Repository.DoctorRepository;
 import com.shield.eaarogya.Service.AppointmentService;
 import com.shield.eaarogya.Service.DepartmentService;
@@ -14,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -33,6 +32,10 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Autowired
     private DoctorRepository doctorRepository;
 
+    @Autowired
+    private AppointmentStatusRepository appointmentStatusRepository;
+
+    @Transactional
     @Override
     public long requestAppointment(AppointmentDetails appointmentDetails) {
         try {
@@ -46,6 +49,10 @@ public class AppointmentServiceImpl implements AppointmentService {
                     appointmentDetails.getPreferredLanguage().toLowerCase()
             );
             Appointment savedAppointment = appointmentRepository.save(appointment);
+
+            // Saving appointment status also
+            AppointmentStatus appointmentStatus = new AppointmentStatus(patient, false);
+            appointmentStatusRepository.save(appointmentStatus);
 
             return savedAppointment.getAppointmentId();
 
@@ -103,19 +110,39 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     // ---------------------------- Check if appointment is accepted or not --------------------------------------------
+    // We are checking this from AppointmentStatus Repository
     @Override
-    public boolean isAppointmentAccepted(long appointmentId) {
-        Appointment appointment = appointmentRepository.findByAppointmentId(appointmentId);
+    public boolean isAppointmentAccepted(long patientId) {
+        AppointmentStatus appointmentStatus = appointmentStatusRepository.findByPatient_PatientId(patientId);
 
-        return appointment.isAccepted();
+        return appointmentStatus.isStatus();
     }
 
+    // --------------------------- Delete Appointment Status using patientId -----------------------------------------
+    @Override
+    public boolean deleteAppointmentStatus(long patientId) {
+        try {
+            appointmentStatusRepository.delete(appointmentStatusRepository.findByPatient_PatientId(patientId));
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // ---------------------------------- Delete appointment using appointmentId ------------------------------------
     @Override
     public boolean deleteAppointment(long appointmentId) {
-        System.out.println("Appointment Service");
+
         try {
             Appointment appointment = appointmentRepository.findByAppointmentId(appointmentId);
-            System.out.println("Appointment Fetched");
+            Patient patient = appointment.getPatient();
+
+            // Setting Appointment Status of that particular appointment to be True.
+            AppointmentStatus appointmentStatus = appointmentStatusRepository.findByPatient_PatientId(patient.getPatientId());
+            appointmentStatus.setStatus(true);
+            appointmentStatusRepository.save(appointmentStatus);
+
             appointmentRepository.delete(appointment);
             return true;
         } catch (Exception e) {
@@ -180,8 +207,8 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public boolean checkAppointment(long patientId) {
         try {
-            Appointment appointment = appointmentRepository.findByPatient_PatientId(patientId);
-            return appointment != null;
+            AppointmentStatus appointmentStatus = appointmentStatusRepository.findByPatient_PatientId(patientId);
+            return appointmentStatus != null;
         } catch (Exception e) {
             System.out.println("Error while checking for appointments");
             e.printStackTrace();

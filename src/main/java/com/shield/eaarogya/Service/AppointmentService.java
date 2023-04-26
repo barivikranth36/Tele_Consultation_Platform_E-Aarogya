@@ -16,7 +16,10 @@ public interface AppointmentService {
     boolean appointmentAccepted(long appointmentId);
 
     // ----------------------------- Check if appointment is accepted or not -------------------------------------------
-    boolean isAppointmentAccepted(long appointmentId);
+    boolean isAppointmentAccepted(long patientId);
+
+    // --------------------------- Delete Appointment Status using patient Id -----------------------------------------
+    boolean deleteAppointmentStatus(long patientId);
 
     // -------------------------------------- Delete a specific Appointment --------------------------------------
     boolean deleteAppointment(long appointmentId);
