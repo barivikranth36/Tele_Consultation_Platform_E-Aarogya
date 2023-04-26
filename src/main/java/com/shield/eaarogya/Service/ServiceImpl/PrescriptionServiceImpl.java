@@ -12,6 +12,7 @@ import com.shield.eaarogya.Entity.Doctor;
 import com.shield.eaarogya.Entity.Patient;
 import com.shield.eaarogya.Entity.Prescription;
 import com.shield.eaarogya.Service.PrescriptionService;
+import com.shield.eaarogya.Service.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +35,9 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
     @Autowired
     ConsultationRepository consultationRepository;
+
+    @Autowired
+    StorageService storageService;
 
     // --------------------- Get Prescription of a patient based on his ID --------------------------------
     @Override
@@ -126,6 +130,9 @@ public class PrescriptionServiceImpl implements PrescriptionService {
                                 prescribingDoctor,
                                 prescribedPatient)
                 );
+
+                // Flushing S3 for this particular consultation using patient Id
+                storageService.deleteAllFiles(prescribedPatient.getPatientId() + "");
 
                 return prescriptionDetails;
             }

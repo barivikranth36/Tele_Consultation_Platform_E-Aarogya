@@ -29,9 +29,9 @@ public class AwsStorageController {
     // ------------------------------------- Get list of all the files available ---------------------------------------
     // On the doctor's end, when the patient uploads any document,
     // whenever doctor clicks on the refresh button of the component
-    @GetMapping("/getAllFiles")
-    public List<String> allFilesS3() {
-        return storageService.allFilesS3();
+    @GetMapping("/getAllFiles/{patientId}")
+    public List<String> allFilesS3(@PathVariable String patientId) {
+        return storageService.allFilesS3(patientId);
     }
 
     // ------------------------------------- Delete File from S3 -------------------------------------------------------
@@ -58,10 +58,11 @@ public class AwsStorageController {
                 .body(storageService.downloadFile(fileName));
     }
 
-    // ----------------------------------------- Flush the S3 ---------------------------------------------------------
+    // ----------------------------------------- Flush the S3 of that particular patient ---------------------------------------------------------
     // When doctor is done with the consultation and he ends the prescription, this API should be invoked
-    @DeleteMapping("/deleteAllFiles")
-    public String deleteAllFiles() {
-        return storageService.deleteAllFiles();
-    }
+    // It is now kept in the add prescription API implementation
+//    @DeleteMapping("/deleteAllFiles/{patientId}")
+//    public String deleteAllFiles(@PathVariable String patientId) {
+//        return storageService.deleteAllFiles(patientId);
+//    }
 }
