@@ -71,7 +71,8 @@ public class AppointmentServiceImpl implements AppointmentService {
                         appointment.getAppointmentTimestamp(),
                         appointment.getPatient().getPatientId(),
                         appointment.getDepartment().getDepartmentName(),
-                        appointment.getPreferredLanguage()
+                        appointment.getPreferredLanguage(),
+                        appointment.isAccepted()
                 ));
             }
 
@@ -81,6 +82,32 @@ public class AppointmentServiceImpl implements AppointmentService {
             e.printStackTrace();
             return null;
         }
+    }
+
+    // --------------------------------------- Appointment Accepted ----------------------------------------------------
+
+    @Override
+    public boolean appointmentAccepted(long appointmentId) {
+
+        try {
+            Appointment appointment = appointmentRepository.findByAppointmentId(appointmentId);
+            appointment.setAccepted(true);
+
+            appointmentRepository.save(appointment);
+
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // ---------------------------- Check if appointment is accepted or not --------------------------------------------
+    @Override
+    public boolean isAppointmentAccepted(long appointmentId) {
+        Appointment appointment = appointmentRepository.findByAppointmentId(appointmentId);
+
+        return appointment.isAccepted();
     }
 
     @Override
@@ -138,7 +165,8 @@ public class AppointmentServiceImpl implements AppointmentService {
             for (Appointment appointment : appointmentList) {
                 appointmentDetailsList.add(new AppointmentDetails(appointment.getAppointmentId(),
                         appointment.getAppointmentTimestamp(), appointment.getPatient().getPatientId(),
-                        appointment.getDepartment().getDepartmentName(), appointment.getPreferredLanguage()));
+                        appointment.getDepartment().getDepartmentName(), appointment.getPreferredLanguage(),
+                        appointment.isAccepted()));
             }
 
             return appointmentDetailsList;
@@ -179,7 +207,8 @@ public class AppointmentServiceImpl implements AppointmentService {
                     if(doctorLanguages.contains(appointmentLanguage))
                         appointmentDetailsList.add(new AppointmentDetails(appointment.getAppointmentId(),
                                 appointment.getAppointmentTimestamp(), appointment.getPatient().getPatientId(),
-                                appointment.getDepartment().getDepartmentName(), appointment.getPreferredLanguage()));
+                                appointment.getDepartment().getDepartmentName(), appointment.getPreferredLanguage(),
+                                appointment.isAccepted()));
                 }
 
                 return appointmentDetailsList;
