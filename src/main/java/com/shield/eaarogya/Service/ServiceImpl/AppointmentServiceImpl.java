@@ -155,6 +155,10 @@ public class AppointmentServiceImpl implements AppointmentService {
         try {
             Appointment appointment = appointmentRepository.findByPatient_PatientId(patientId);
             appointmentRepository.delete(appointment);
+
+            // Also deleting the record from AppointmentStatus table
+            AppointmentStatus appointmentStatus = appointmentStatusRepository.findByPatient_PatientId(patientId);
+            appointmentStatusRepository.delete(appointmentStatus);
             return true;
         } catch (Exception e) {
             return false;
@@ -207,8 +211,8 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public boolean checkAppointment(long patientId) {
         try {
-            AppointmentStatus appointmentStatus = appointmentStatusRepository.findByPatient_PatientId(patientId);
-            return appointmentStatus != null;
+            Appointment appointment = appointmentRepository.findByPatient_PatientId(patientId);
+            return appointment != null;
         } catch (Exception e) {
             System.out.println("Error while checking for appointments");
             e.printStackTrace();
