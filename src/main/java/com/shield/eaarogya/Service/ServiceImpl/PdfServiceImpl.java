@@ -98,10 +98,10 @@ public class PdfServiceImpl implements PdfService {
             document.add(headerTable);
 
             // ================================ Trying to add image to the pdf ==================================
-            Image logo = Image.getInstance("https://github.com/barivikranth36/Tele_Consultation_Platform_E-Aarogya/blob/0820eed1a9691d88685164fe7b8fae523a52299e/src/main/java/com/shield/eaarogya/Service/ServiceImpl/GradientLogo.png");
-            logo.scaleAbsolute(150, 100);
-            logo.setAbsolutePosition(400, 715);
-            document.add(logo);
+//             Image logo = Image.getInstance("https://github.com/barivikranth36/Tele_Consultation_Platform_E-Aarogya/blob/0820eed1a9691d88685164fe7b8fae523a52299e/src/main/java/com/shield/eaarogya/Service/ServiceImpl/GradientLogo.png");
+//             logo.scaleAbsolute(150, 100);
+//             logo.setAbsolutePosition(400, 715);
+//             document.add(logo);
 
             // ################################ Trying to Create Table for patient details ###################################
 
