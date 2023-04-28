@@ -21,7 +21,7 @@ public class PdfController {
     private PdfService pdfService;
 
     // ------------------------ Generating Pdf based on Prescription Id for patient -------------------------------
-//    @PreAuthorize("hasRole('ROLE_PATIENT')")
+    @PreAuthorize("hasRole('ROLE_PATIENT')")
     @GetMapping("/getPdf/{prescriptionId}")
     public ResponseEntity<InputStreamResource> getPdf(@PathVariable String prescriptionId) {
 
@@ -42,7 +42,7 @@ public class PdfController {
     }
 
     // ------------------------ Generating Pdf based on Prescription Id for doctor -------------------------------
-//    @PreAuthorize("hasRole('ROLE_DOCTOR')")
+    @PreAuthorize("hasRole('ROLE_DOCTOR')")
     @GetMapping("/getPdfDoctor/{prescriptionId}")
     public ResponseEntity<InputStreamResource> getPdfDoctor(@PathVariable String prescriptionId) {
 

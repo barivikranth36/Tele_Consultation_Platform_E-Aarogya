@@ -48,6 +48,7 @@ public class PrescriptionServiceImpl implements PrescriptionService {
 
             Collections.reverse(prescriptionList);
 
+            Collections.reverse(prescriptionList);
             List<PrescriptionDetails> prescriptionDetailsList = new ArrayList<>();
 
             for (Prescription prescription : prescriptionList) {
