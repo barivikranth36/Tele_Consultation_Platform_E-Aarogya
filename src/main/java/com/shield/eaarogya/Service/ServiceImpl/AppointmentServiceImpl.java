@@ -150,6 +150,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         }
     }
 
+    // To revoke the appointment taken
     @Override
     public boolean deleteAppointmentByPatientId(long patientId) {
         try {
