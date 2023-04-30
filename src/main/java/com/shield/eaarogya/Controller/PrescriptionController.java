@@ -26,7 +26,7 @@ public class PrescriptionController {
     }
 
     // -------------------------------------- Adding Prescription to the Database ----------------------------------------
-//    @PreAuthorize("hasRole('ROLE_DOCTOR')")
+    @PreAuthorize("hasRole('ROLE_DOCTOR')")
     @PostMapping("/addPrescription")
     public PrescriptionDetails addPrescription(@RequestBody PrescriptionDetails prescriptionDetails) {
         return this.prescriptionService.addPrescription(prescriptionDetails);
