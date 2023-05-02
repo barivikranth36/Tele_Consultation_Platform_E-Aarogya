@@ -14,6 +14,7 @@ import java.util.List;
 import static java.net.HttpURLConnection.HTTP_OK;
 
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/fileaws")
 public class AwsStorageController {
 
