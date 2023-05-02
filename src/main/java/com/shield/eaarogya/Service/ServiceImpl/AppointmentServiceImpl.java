@@ -150,6 +150,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         }
     }
 
+    // To revoke the appointment taken
     @Override
     public boolean deleteAppointmentByPatientId(long patientId) {
         try {
@@ -172,7 +173,8 @@ public class AppointmentServiceImpl implements AppointmentService {
             Appointment appointment = appointmentRepository.findByAppointmentId(appointmentId);
             List<Appointment> appointmentList = new ArrayList<>();
             if(appointment != null) {
-                appointmentList = appointmentRepository.findAllByDepartment_DepartmentNameAndAppointmentTimestampLessThan(
+                appointmentList = appointmentRepository
+                        .findAllByDepartment_DepartmentNameAndAppointmentTimestampLessThan(
                         appointment.getDepartment().getDepartmentName(), appointment.getAppointmentTimestamp());
             }
             if(appointmentList != null)

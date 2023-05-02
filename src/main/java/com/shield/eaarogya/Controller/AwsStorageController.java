@@ -22,7 +22,7 @@ public class AwsStorageController {
 
     // ------------------------------- Upload a file to AWS S3 ------------------------------------------------------
     // ONLY ALLOW PDF FILES TO UPLOAD
-    @PreAuthorize("hasRole('ROLE_PATIENT')")
+//    @PreAuthorize("hasRole('ROLE_PATIENT')")
     @PostMapping("/uploadFile/{patientId}")
     public String uploadFile(@RequestParam(value = "file")MultipartFile multipartFile, @PathVariable String patientId) {
         System.out.println("Inside API to upload file");
@@ -34,9 +34,9 @@ public class AwsStorageController {
     // ------------------------------------- Get list of all the files available ---------------------------------------
     // On the doctor's end, when the patient uploads any document,
     // whenever doctor clicks on the refresh button of the component
-    @GetMapping("/getAllFiles/{patientId}")
-    public List<String> allFilesS3(@PathVariable String patientId) {
-        return storageService.allFilesS3(patientId);
+    @GetMapping("/getAllFilesPatient/{patientId}")
+    public List<String> allFilesPatientS3(@PathVariable String patientId) {
+        return storageService.allFilesPatientS3(patientId);
     }
 
     // ------------------------------------- Delete File from S3 -------------------------------------------------------
