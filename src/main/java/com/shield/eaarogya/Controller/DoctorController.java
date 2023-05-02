@@ -49,6 +49,7 @@ public class DoctorController {
     }
 
     // ------------------------------------------ Get Doctor from Phone Number --------------------------------------
+     @PreAuthorize("hasRole('ROLE_DOCTOR')")
     @GetMapping("/getDoctorByPhoneNumber/{phoneNumber}")
     public DoctorDetails getDoctorByPhoneNumber(@PathVariable String phoneNumber) {
 

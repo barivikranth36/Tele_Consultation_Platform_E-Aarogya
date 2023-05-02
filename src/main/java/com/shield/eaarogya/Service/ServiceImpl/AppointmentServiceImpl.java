@@ -157,7 +157,7 @@ public class AppointmentServiceImpl implements AppointmentService {
             Appointment appointment = appointmentRepository.findByPatient_PatientId(patientId);
             appointmentRepository.delete(appointment);
 
-            // Also deleting the record from AppointmentStatus table
+            // Also deleting the record from Appointment-Status table
             AppointmentStatus appointmentStatus = appointmentStatusRepository.findByPatient_PatientId(patientId);
             appointmentStatusRepository.delete(appointmentStatus);
             return true;
