@@ -31,12 +31,20 @@ public class AwsStorageController {
         return storageService.uploadFile(multipartFile, Long.parseLong(patientId));
     }
 
-    // ------------------------------------- Get list of all the files available ---------------------------------------
+    // ------------------------------------- Get list of all the files available on patient side ---------------------------------------
     // On the doctor's end, when the patient uploads any document,
     // whenever doctor clicks on the refresh button of the component
+    @PreAuthorize("hasRole('ROLE_PATIENT')")
     @GetMapping("/getAllFilesPatient/{patientId}")
     public List<String> allFilesPatientS3(@PathVariable String patientId) {
         return storageService.allFilesPatientS3(patientId);
+    }
+
+    // ---------------------------- Get list of all files on doctor's side --------------------------------------------
+    @PreAuthorize("hasRole('ROLE_DOCTOR')")
+    @GetMapping("/getAllFilesDoctor/{patientId}")
+    public List<String> allFilesDoctorS3(@PathVariable String patientId) {
+        return storageService.allFilesDoctorS3(patientId);
     }
 
     // ------------------------------------- Delete File from S3 -------------------------------------------------------
