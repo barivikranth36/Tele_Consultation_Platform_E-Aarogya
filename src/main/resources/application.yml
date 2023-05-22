@@ -1,7 +1,6 @@
 cloud:
   aws:
     credentials:
-
     region:
       static: eu-north-1
     stack:
